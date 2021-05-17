@@ -16,21 +16,15 @@ class Model_Main extends Model
 		$message = [];
 		
         $login = $post['login'];
-		if (isset($post['login']) && isset($post['password']) && isset($post['password_confirm'])) {
-			if (md5($post['password']) == md5($post['password_confirm'])) {
-					$string = "INSERT INTO `users` VALUES (NULL, '$login', '$password', 'NULL', '3')";
-					echo $string;
-					$mysqli->query($string);
-					if ($mysqli->error == true) {
-						$error = "Ошибочка! ".$mysqli->error;
-					}
-					else {
-						$error = "Регистрация успешна!";
-					}
-				}
-			else 
-			{
-				$message[] = "Пароли не совпадают.";
+		if (isset($post['login']) && isset($post['password'])) {
+			$string = "INSERT INTO `users` VALUES (NULL, '$login', '$password', 'NULL', '3')";
+			//echo $string;
+			$mysqli->query($string);
+			if ($mysqli->error == true) {
+				$error = "Ошибочка! ".$mysqli->error;
+			}
+			else {
+				$error = "Регистрация успешна!";
 			}
 		}
 		
