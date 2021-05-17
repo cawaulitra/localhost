@@ -4,7 +4,7 @@ session_start();
 
 class Model_User extends Model
 {
-	public function register_user($post) //регистрация
+	public function registerAction($post) //регистрация
 	{
 		$mysqli = $this->sql_connect();		// копируй это везде если хочешь коннект к БД
 		if ($mysqli->connect_error){		//
@@ -45,7 +45,7 @@ class Model_User extends Model
 		$_SESSION['error'] = $message; //после считывания error удалять во view с помощью unset($_SESSION['error'])!
 	}
 	
-	function login_user($post) {
+	function loginAction($post) {
 		$mysqli = $this->sql_connect();
 		if ($mysqli->connect_error){
 			die('Error');

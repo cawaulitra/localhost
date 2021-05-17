@@ -4,10 +4,10 @@ class Model
 	public function get_data()
 	{
 	}
-    //подключаемся к бд
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
     public function sql_connect()
 	{
-	   $sql = new mysqli("localhost", "root", "", "wm");
+	   $sql = new mysqli("localhost", "mysqli", "mysqli", "billing");
        
 	   return $sql;
     }

@@ -1,5 +1,5 @@
-		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 <style>
 .login_page{
 	position:absolute;
@@ -57,14 +57,13 @@ a{
 	color: rgba(37, 50, 84, 0.7);
 	padding-top: 15px;
 	font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 14px;
-line-height: 16px;
-	
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 16px;	
 }
 </style>
-<form action="/user/login" method="post" class="login_page">
+<form action="/user/loginAction" method="post" class="login_page">
 	<div class="login_page">
 		<div class="plane">
 			Авторизация

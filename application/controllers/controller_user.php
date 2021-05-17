@@ -18,10 +18,10 @@ class Controller_user extends Controller
 		}
     }
 
-    function action_registerSuccess()
+    function action_registerAction()
     {
-        if (!(empty($_POST))){	
-            $this->model->set_user($_POST);
+        if (!empty($_POST)){	
+            $this->model->registerAction($_POST);
             $this->view->generate('register_user_view.php', 'template_view.php', $data);
         }
     }
@@ -35,9 +35,9 @@ class Controller_user extends Controller
 		}
 	}
 	
-	function action_loginTry() {
-		if (!(empty($_POST))){
-			$data = $this->model->login_user($_POST); //ДЛЯ return $data из модели!!!!!!!!!!
+	function action_loginAction() {
+		if (!empty($_POST)){
+			$data = $this->model->loginAction($_POST); //ДЛЯ return $data из модели!!!!!!!!!!
 			if (empty($_POST['success'])) {
 				$this->view->generate('main_view.php', 'template_view.php', $data);
 			}
