@@ -68,8 +68,8 @@ line-height: 16px;
 	<div class="plane">
 	Авторизация
 	</div>
-	<input class="input" name="login" placeholder="Введите логин" style="margin-top:73px;">
-	<input class="input" name="password" placeholder="Введите пароль">
+	<input class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
+	<input class="input" name="password" placeholder="Введите пароль" autocomplete="off">
 	
 	<button type="submit">Войти</button>
 	<a href="#">Регистрация</a>
