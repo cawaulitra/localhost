@@ -22,7 +22,7 @@ class Route
 			$action_name = $routes[2];
 		}
         
-        // получаем параметр экшена, если такой будет
+        // получаем параметр экшена, если такой будит
 		if ( !empty($routes[3]) )
 		{
 			$action_param = $routes[3];
@@ -68,7 +68,7 @@ class Route
 	
 	}
     
-    static function ErrorPage404()
+    function ErrorPage404()
 	{
         $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
         header('HTTP/1.1 404 Not Found');
