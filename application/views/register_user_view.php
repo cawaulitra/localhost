@@ -68,8 +68,8 @@ a{
 		<div class="plane">
 			Регистрация
 		</div>
-		<input class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
-		<input class="input" name="password" placeholder="Введите пароль" autocomplete="off">	
+		<input type="text" class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
+		<input type="password" class="input" name="password" placeholder="Введите пароль" autocomplete="off">	
 		<button type="submit">Регистрация</button>
 		<a href="/user/login">Войти</a>
 	</div>

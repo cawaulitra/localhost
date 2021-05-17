@@ -11,19 +11,20 @@ class Controller_user extends Controller
 	function action_register()
     {
 		if (empty($_SESSION)) {
-			$this->view->generate('register_user_view.php', 'register_user_view.php', $data);
+			$this->view->generate('register_user_view.php', 'register_user_view.php');
 		}
 		else {
-			$this->view->generate('main_view.php', 'template_view.php', $data);
+			header("Location: /");
 		}
     }
 
     function action_registerAction()
     {
         if (!empty($_POST)){	
-            $this->model->registerAction($_POST);
-            $this->view->generate('register_user_view.php', 'template_view.php', $data);
-        }
+            $data = $this->model->registerAction($_POST);
+			if($data['success']) $this->view->generate('main_view.php', 'login_user_view.php');
+			else $this->view->generate('main_view.php', 'register_user_view.php', $data);
+		}
     }
 	
 	function action_login() {
@@ -38,8 +39,8 @@ class Controller_user extends Controller
 	function action_loginAction() {
 		if (!empty($_POST)){
 			$data = $this->model->loginAction($_POST); //ДЛЯ return $data из модели!!!!!!!!!!
-			if (empty($_POST['success'])) {
-				$this->view->generate('main_view.php', 'template_view.php', $data);
+			if ($data['success']) {
+				$this->view->generate('main_view.php', 'template_view.php');
 			}
 			else {
 				$this->view->generate('login_user_view.php', 'template_view.php', $data);
@@ -55,7 +56,7 @@ class Controller_user extends Controller
 		unset($_SESSION['success']);
 		unset($_SESSION['success-comment']);
 		unset($_SESSION['success-file']);
-		$this->view->generate('main_view.php', 'template_view.php');
+		$this->view->generate('login_user_view.php', 'login_user_view.php');
 	}
 }
 ?>

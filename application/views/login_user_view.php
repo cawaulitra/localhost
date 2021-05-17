@@ -19,10 +19,10 @@
 	width: 389px;
 	height: 57px;
 	background: rgba(239, 238, 238, 0.4);
+	border: 1px solid grey;
 	border-radius: 7px;
 	border: none;
 	text-align: center;
-	
 }
 button{
 	width: 197px;
@@ -68,8 +68,8 @@ a{
 		<div class="plane">
 			Авторизация
 		</div>
-		<input class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
-		<input class="input" name="password" placeholder="Введите пароль" autocomplete="off">
+		<input type="text" class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
+		<input type="password" class="input" name="password" placeholder="Введите пароль" autocomplete="off">
 		<button type="submit">Войти</button>
 		<a href="/user/register">Регистрация</a>
 	</div>

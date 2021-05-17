@@ -3,7 +3,7 @@ class Controller_Main extends Controller
 {
 	function action_index()
 	{	
-		if (!empty($_SESSION)) {
+		if (isset($_SESSION['login'])) {
 			$this->view->generate('main_view.php', 'template_view.php');
 		}
 		else {

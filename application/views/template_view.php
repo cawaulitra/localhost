@@ -26,7 +26,7 @@
 				</div>
 				<div id="profile">
 					<p>Poogiloy</p>
-					<a href="#">Выход</a>
+					<a href="/user/leave">Выход</a>
 				</div>
 			</div>
 			<div id="page"> 

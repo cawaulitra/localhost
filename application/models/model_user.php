@@ -6,6 +6,9 @@ class Model_User extends Model
 {
 	public function registerAction($post) //регистрация
 	{
+		$data = [];
+		$data['success'] = false;
+
 		$mysqli = $this->sql_connect();		// копируй это везде если хочешь коннект к БД
 		if ($mysqli->connect_error){		//
 			die('Error');					//
@@ -17,8 +20,9 @@ class Model_User extends Model
 		$message = [];
 		
 		$login = $post['login'];
+		$password = md5($post['password']);
 		if (isset($post['login']) && isset($post['password'])) {
-			$string = "INSERT INTO `users` VALUES (NULL, '$login', '$password', 'NULL', '3')";
+			$string = "INSERT INTO `users` VALUES (NULL, '$login', 'fio', '$password', '3')";
 			//echo $string;
 			$mysqli->query($string);
 			if ($mysqli->error == true) {
@@ -40,19 +44,23 @@ class Model_User extends Model
 		
 		if (empty($message)) {
 			$message[] = "Регистрация успешна!";
+			$data['success'] = true;
 		}
 		
-		$_SESSION['error'] = $message; //после считывания error удалять во view с помощью unset($_SESSION['error'])!
+		$data['message'] = $message;
+		return $data;
 	}
 	
 	function loginAction($post) {
+		$data = [];
+
 		$mysqli = $this->sql_connect();
 		if ($mysqli->connect_error){
 			die('Error');
 		}
 		$mysqli->set_charset('utf8');
 		
-		$string = "SELECT * FROM `users` WHERE login='". $post['login'] ."' LIMIT 1";
+		$string = "SELECT * FROM `users` WHERE login='". $post['login'] ."' ";
 
 		$check = $mysqli->query($string);
 		$checking = $check->fetch_assoc();
@@ -61,12 +69,13 @@ class Model_User extends Model
 			$_SESSION['login'] = $post['login'];
 			$_SESSION['id'] = $checking['id'];
 			$_SESSION['id_role'] = $checking['id_role'];
+			$data['success'] = true;
 		}
 		else
 		{
 			echo "Ошибка: Неправильный логин или пароль.";
+			$data['success'] = false;
 		}
-		$data = "ы";
 		return $data;
 	}
 }
