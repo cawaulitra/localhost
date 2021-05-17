@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 class Model_Main extends Model
 {
@@ -17,7 +17,7 @@ class Model_Main extends Model
 		
         $login = $post['login'];
 		if (isset($post['login']) && isset($post['password']) && isset($post['password_confirm'])) {
-			if (md5($post['password']) == md5($post['password_confirm']) {
+			if (md5($post['password']) == md5($post['password_confirm'])) {
 					$string = "INSERT INTO `users` VALUES (NULL, '$login', '$password', 'NULL', '3')";
 					echo $string;
 					$mysqli->query($string);
