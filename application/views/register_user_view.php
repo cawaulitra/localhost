@@ -64,9 +64,10 @@ line-height: 16px;
 	
 }
 </style>
-<div class="login_page">
+<form action="/user/register" method="post" class="login_page">
+	<div class="login_page">
 	<div class="plane">
-	Регистрация
+		Регистрация
 	</div>
 	<input class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
 	<input class="input" name="password" placeholder="Введите пароль" autocomplete="off">
@@ -74,4 +75,5 @@ line-height: 16px;
 	<button type="submit">Регистрация</button>
 	<a href="/user/login">Войти</a>
 
-</div>
+	</div>
+</form>

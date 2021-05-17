@@ -65,14 +65,13 @@ line-height: 16px;
 }
 </style>
 <form action="/user/login" method="post" class="login_page">
-<div class="login_page">
-	<div class="plane">
-	Авторизация
-
-	</div>
+	<div class="login_page">
+		<div class="plane">
+			Авторизация
+		</div>
 		<input class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
 		<input class="input" name="password" placeholder="Введите пароль" autocomplete="off">
 		<button type="submit">Войти</button>
-	<a href="/user/register">Регистрация</a>
+		<a href="/user/register">Регистрация</a>
 	</div>
 </form>
