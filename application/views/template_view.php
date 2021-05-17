@@ -19,7 +19,7 @@
 				</div>
 				<div id="menu">
 					<ul>
-						<li><a href="/">Главная</a></li>
+						<li><a href="/">Салаааам</a></li>
 						<li><a href="/guest/page/1">Гостевая</a></li>
 					</ul>
 					<br class="clearfix" />
