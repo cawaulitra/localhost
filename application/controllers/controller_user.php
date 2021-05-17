@@ -11,7 +11,7 @@ class Controller_user extends Controller
 	function action_register()
     {
 		if (empty($_SESSION)) {
-			$this->view->generate('register_user_view.php', 'template_view.php', $data);
+			$this->view->generate('register_user_view.php', 'register_user_view.php', $data);
 		}
 		else {
 			$this->view->generate('main_view.php', 'template_view.php', $data);
@@ -28,7 +28,7 @@ class Controller_user extends Controller
 	
 	function action_login() {
 		if (empty($_SESSION)) {
-			$this->view->generate('login_user_view.php', 'template_view.php');
+			$this->view->generate('login_user_view.php', 'login_user_view.php');
 		}
 		else {
 			$this->view->generate('main_view.php', 'template_view.php');

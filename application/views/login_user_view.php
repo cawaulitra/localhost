@@ -72,6 +72,6 @@ line-height: 16px;
 	<input class="input" name="password" placeholder="Введите пароль" autocomplete="off">
 	
 	<button type="submit">Войти</button>
-	<a href="register">Регистрация</a>
+	<a href="/user/register">Регистрация</a>
 
 </div>
