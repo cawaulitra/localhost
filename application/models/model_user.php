@@ -76,8 +76,11 @@ class Model_User extends Model
 			{
 				$data['success'] = false;
 			}
-			return $data;
 		}
+		else {
+			$data['success'] = false;
+		}
+		return $data;
 	}
 }
 

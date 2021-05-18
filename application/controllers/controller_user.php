@@ -50,7 +50,17 @@ class Controller_user extends Controller
 			$this->view->generate('login_user_view.php', 'login_user_view.php');
 		}
 	}
-	
+
+	function action_profile()
+    {
+		if (isset($_SESSION['login'])) {
+			$this->view->generate('user_profile_view.php', 'template_view.php');
+		}
+		else {
+			header("Location: /");
+		}
+    }
+ 	
 	function action_leave() {
 		unset($_SESSION['login']);
 		unset($_SESSION['id']);

@@ -71,6 +71,7 @@ a{
 		<?php 
 			if (isset($data)) {
 				if ($data['success'] == false) {
+				echo "<br><br>";
 				echo "Неправильный логин или пароль.";
 				}
 			}
