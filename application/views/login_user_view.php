@@ -68,6 +68,13 @@ a{
 		<div class="plane">
 			Авторизация
 		</div>
+		<?php 
+			if (isset($data)) {
+				if ($data['success'] == false) {
+				echo "Неправильный логин или пароль.";
+				}
+			}
+			?>
 		<input type="text" class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
 		<input type="password" class="input" name="password" placeholder="Введите пароль" autocomplete="off">
 		<button type="submit">Войти</button>

@@ -39,12 +39,15 @@ class Controller_user extends Controller
 	function action_loginAction() {
 		if (!empty($_POST)){
 			$data = $this->model->loginAction($_POST); //ДЛЯ return $data из модели!!!!!!!!!!
-			if ($data['success']) {
-				$this->view->generate('main_view.php', 'template_view.php');
+			if ($data['success'] == true) {
+				$data = $this->view->generate('main_view.php', 'template_view.php', $data);
 			}
 			else {
-				$this->view->generate('login_user_view.php', 'template_view.php', $data);
+				$this->view->generate('login_user_view.php', 'login_user_view.php', $data);
 			}
+		}
+		else {
+			$this->view->generate('login_user_view.php', 'login_user_view.php');
 		}
 	}
 	

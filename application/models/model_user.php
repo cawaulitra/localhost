@@ -63,20 +63,21 @@ class Model_User extends Model
 		$string = "SELECT * FROM `users` WHERE login='". $post['login'] ."' ";
 
 		$check = $mysqli->query($string);
-		$checking = $check->fetch_assoc();
-		if ($checking['password'] === md5(($post['password'])))
-		{
-			$_SESSION['login'] = $post['login'];
-			$_SESSION['id'] = $checking['id'];
-			$_SESSION['id_role'] = $checking['id_role'];
-			$data['success'] = true;
+		if ($check !== false) {
+			$checking = $check->fetch_assoc();
+			if ($checking['password'] === md5(($post['password'])))
+			{
+				$_SESSION['login'] = $post['login'];
+				$_SESSION['id'] = $checking['id'];
+				$_SESSION['id_role'] = $checking['id_role'];
+				$data['success'] = true;
+			}
+			else
+			{
+				$data['success'] = false;
+			}
+			return $data;
 		}
-		else
-		{
-			echo "Ошибка: Неправильный логин или пароль.";
-			$data['success'] = false;
-		}
-		return $data;
 	}
 }
 
