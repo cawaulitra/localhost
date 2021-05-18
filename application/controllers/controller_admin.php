@@ -43,4 +43,26 @@ class Controller_admin extends Controller
 			header("Location: /");
 		}
     }
+
+    function action_view_user($id) {
+        if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
+            if($_SESSION['id_role'] == 1) { //админ
+			    $this->view->generate('view_user_admin_view.php', 'template_view.php');
+            }
+		}
+        else {
+			header("Location: /");
+		}
+    }
+
+    function action_view_ticket($id) {
+        if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
+            if($_SESSION['id_role'] == 1) { //админ
+			    $this->view->generate('view_ticket_admin_view.php', 'template_view.php');
+            }
+		}
+        else {
+			header("Location: /");
+		}
+    }
 }

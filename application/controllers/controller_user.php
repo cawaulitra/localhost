@@ -65,10 +65,10 @@ class Controller_user extends Controller
 		unset($_SESSION['login']);
 		unset($_SESSION['id']);
 		unset($_SESSION['id_role']);
-		unset($_SESSION['active']);
-		unset($_SESSION['success']);
-		unset($_SESSION['success-comment']);
-		unset($_SESSION['success-file']);
+		//unset($_SESSION['active']);
+		//unset($_SESSION['success']);
+		//unset($_SESSION['success-comment']);
+		//unset($_SESSION['success-file']);
 		$this->view->generate('login_user_view.php', 'login_user_view.php');
 	}
 }
