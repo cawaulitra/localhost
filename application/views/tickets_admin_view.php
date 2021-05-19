@@ -28,7 +28,7 @@
     justify-content: space-between;
     padding: 0 50px;
 }
-.a{
+a{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -58,9 +58,9 @@ td{
         <table cellspacing="30px" width="1294px">
         <tr>
             <td valign="middle" width="80px"><p><?php echo "52" ?></p></td>
-            <td valign="middle" width="650px"><p><?php echo "Titlewdcket" ?></p><td>
+            <td valign="middle" width="400px"><p><?php echo "Titlewdcket" ?></p><td>
             <td valign="middle" width="100px"><p><?php echo "Ожидание" ?></p></td>
-            <td valign="middle" width="100px"><p><a class="edit">Редактировать</a></p></td>
+            <td valign="middle" width="150px"><p><a class="edit">Редактировать</a></p></td>
             <td valign="middle" width="100px"><p><a class="delete">Удалить</a></p></td>
         </tr>
         </table>

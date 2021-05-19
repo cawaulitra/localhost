@@ -4,5 +4,5 @@ session_start();
 
 class Model_Admin extends Model
 {
-
+    //function
 }
