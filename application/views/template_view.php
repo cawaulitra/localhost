@@ -270,7 +270,8 @@
 						//var_dump($_SESSION);
 						if ($_SESSION['id_role'] == '1') { //админ
 							echo '<li><a href="/">Главная</a></li>';
-							echo '<li><a href="/admin/main">Админ-панель</a></li>';
+							echo '<li><a href="/admin/tickets">Тикеты</a></li>';
+							echo '<li><a href="/admin/users">Пользователи</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
 
