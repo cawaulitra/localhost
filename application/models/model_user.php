@@ -12,25 +12,28 @@ class Model_User extends Model
 		}
 		$mysqli->set_charset('utf8');
 
+		$data = [];
+		$data['success'] = false;
+
 		if (isset($post['login'])) {
 			$string = "UPDATE `users` SET `login` = '". $post['login'] ."' WHERE `users`.`id` = ". $_SESSION['id'];
 			$mysqli->query($string);
 			if ($mysqli->error == true) {
-				$error = "Что-то пошло не так. Текст ошибки: ";
+				$data['success'] = "Что-то пошло не так. Текст ошибки: " . $mysqli->error;
 			}
 			else {
-				$error = "Логин изменён!"
+				$data['success'] = "Имя изменено!";
 			}
 		}
 
 		if (isset($post['fio'])) {
-			$string = "UPDATE `users` SET `fio` = '". $post['login'] ."' WHERE `users`.`id` = ". $_SESSION['id'];
+			$string = "UPDATE `users` SET `name` = '". $post['login'] ."' WHERE `users`.`id` = ". $_SESSION['id'];
 			$mysqli->query($string);
 			if ($mysqli->error == true) {
-				$error = "Что-то пошло не так. Текст ошибки: ";
+				$data['success'] = "Что-то пошло не так. Текст ошибки: " . $mysqli->error;
 			}
 			else {
-				$error = "Имя изменено!"
+				$data['success'] = "Имя изменено!";
 			}
 		}
 	}
@@ -99,6 +102,7 @@ class Model_User extends Model
 			if ($checking['password'] === md5(($post['password'])))
 			{
 				$_SESSION['login'] = $post['login'];
+				$_SESSION['name'] = $checking['name'];
 				$_SESSION['id'] = $checking['id'];
 				$_SESSION['id_role'] = $checking['id_role'];
 				$data['success'] = true;

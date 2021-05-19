@@ -111,7 +111,7 @@ a{
             </div>
             <div class="text2">
                 <p class="name">ФИО</p>
-                <p class="data"><?php echo $_SESSION['FIO']?></p>
+                <p class="data"><?php echo $_SESSION['name']?></p>
                 <a>Изменить</a>
             </div>
             <a class="password">Изменить пароль</a>
