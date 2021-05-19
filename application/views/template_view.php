@@ -5,7 +5,6 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<title>WM Главная</title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<style>	
 			* {
 				
@@ -124,7 +123,7 @@
 				font-family: Roboto;
 			}
 			a{
-				color: #FFF;
+
 				text-decoration: none;
 			}
 			a:hover{
