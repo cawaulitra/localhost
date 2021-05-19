@@ -5,7 +5,7 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<title>WM Главная</title>
-		<!--<link rel="stylesheet" type="text/css" href="/css/style.css" />-->
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<style>	
 			* {
 				
@@ -162,9 +162,7 @@
 
 				margin: 0;
 				height: calc(100vh - 130px);
-				background:url(../images/bg_image.png);
-				background-repeat: no-repeat;
-				background-position: center center;
+
 			}
 
 
