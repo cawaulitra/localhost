@@ -34,6 +34,7 @@
 }
 .radio{
     display: flex;
+    flex-direction: column;
 }
 
 </style>
@@ -52,8 +53,14 @@
         </div>
         <div class="radio">
             <p>Тип вопроса</p>
-            <input type="radio" value="dwadwad">
-            <input type="radio" value="dwadwad">
+            <select>
+                <option>dwadwadfwaf</option>
+                <option>dwadwadfwaf</option>
+                <option>dwadwadfwaf</option>
+                <option>dwadwadfwaf</option>
+                <option>dwadwadfwaf</option>
+                <option>dwadwadfwaf</option>
+            </select>
         </div>
     </div>
 </div>
