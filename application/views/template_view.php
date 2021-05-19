@@ -273,18 +273,18 @@
 							echo '<li><a href="/admin/tickets">Тикеты</a></li>';
 							echo '<li><a href="/admin/users">Пользователи</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
-							if (isset($_SERVER['HTTP_REFERER'])) {
-								echo "<li><a href='". $_SERVER['HTTP_REFERER'] ."'>Назад</a></li>";
-							}
+							//if (isset($_SERVER['HTTP_REFERER'])) {
+							//	echo "<li><a href='". $_SERVER['HTTP_REFERER'] ."'>Назад</a></li>";
+							//}
 						}
 
 						if ($_SESSION['id_role'] == '2') { //сотрудник
 							echo '<li><a href="/">Главная</a></li>';
 							echo '<li><a href="/ticket/browse">Список тикетов</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
-							if (isset($_SERVER['HTTP_REFERER'])) {
-								echo "<li><a href='". $_SERVER['HTTP_REFERER'] ."'>Назад</a></li>";
-							}
+							//if (isset($_SERVER['HTTP_REFERER'])) {
+							//	echo "<li><a href='". $_SERVER['HTTP_REFERER'] ."'>Назад</a></li>";
+							//}
 						}
 
 						if ($_SESSION['id_role'] == '3') { //пользователь
@@ -292,9 +292,9 @@
 							echo '<li><a href="/ticket/create">Создать тикет</a></li>';
 							echo '<li><a href="/ticket/browse">Список тикетов</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
-							if (isset($_SERVER['HTTP_REFERER'])) {
-								echo "<li><a href='". $_SERVER['HTTP_REFERER'] ."'>Назад</a></li>";
-							}
+							//if (isset($_SERVER['HTTP_REFERER'])) {
+							//	echo "<li><a href='". $_SERVER['HTTP_REFERER'] ."'>Назад</a></li>";
+							//}
 						}
 						//<li><a href="/">Главная</a></li>
 						//<li><a href="/guest/page/1">Гостевая</a></li>
