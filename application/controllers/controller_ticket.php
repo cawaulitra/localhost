@@ -28,7 +28,6 @@ class Controller_ticket extends Controller
 			header("Location: /");
 		}
     }
-    }
 
     function action_browse()
     {
@@ -38,5 +37,5 @@ class Controller_ticket extends Controller
 		else {
 			header("Location: /");
 		}
-    }
+	}
 }

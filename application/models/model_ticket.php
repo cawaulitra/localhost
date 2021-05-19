@@ -26,20 +26,20 @@ class Model_Ticket extends Model
                 $checking = $check->fetch_assoc();
                 foreach ($checking as $checking) {
                     $employees[] = [
-                        'id' = $checking['id']
+                        'id' => $checking['id']
                     ];
                 }
             }
             else die;
 
             foreach ($employees as $employees) {
-                $employees_string = "SELECT * FROM `tickets` WHERE `id_author` = $employees['id'] AND `id_status` != '3'"
+                $employees_string = "SELECT * FROM `tickets` WHERE `id_author` =". $employees['id'] ."AND `id_status` != '3'";
                 $check = $mysqli->query($employees_string);
                 if ($check !== false) {
                     $checking = $check->fetch_assoc();
                     $tickets[] = [
-                        'id' = $employees['id'];
-                        'total' = $checking->num_rows;
+                        'id' => $employees['id'],
+                        'total' => $checking->num_rows
                     ];
                 }
                 else die;
@@ -48,7 +48,7 @@ class Model_Ticket extends Model
             asort($tickets);
             $id_employee = $tickets[0]['id'];
 
-            $string = "INSERT INTO `tickets` VALUES (NULL, $_SESSION['id'], $id_employee, $post['title'], $post['id_type'], $post['text'], '1', date('Y-m-d H:i:s'), NULL, NULL)";
+            $string = "INSERT INTO `tickets` VALUES (NULL, ". $_SESSION['id'] .", ". $id_employee. ", ". $post['title'].", ". $post['id_type'] .", ". $post['text'] .", '1', date('Y-m-d H:i:s'), NULL, NULL)";
             $check = $mysqli->query($string);
             if ($check !== false) {
                 $data['success'] = true;
