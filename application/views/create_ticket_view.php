@@ -70,7 +70,7 @@
             <p>Название:</p>
             <input>
             <p>Описание:</p>
-            <textarea></textarea>
+            <textarea cols="25" ></textarea>
             <p:>Дополнительно</p>
             <input type="file">
         </div>
