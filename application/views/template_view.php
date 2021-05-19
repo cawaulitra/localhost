@@ -271,17 +271,20 @@
 						if ($_SESSION['id_role'] == '1') { //админ
 							echo '<li><a href="/">Главная</a></li>';
 							echo '<li><a href="/admin/main">Админ-панель</a></li>';
+							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
 
 						if ($_SESSION['id_role'] == '2') { //сотрудник
 							echo '<li><a href="/">Главная</a></li>';
 							echo '<li><a href="/ticket/browse">Список тикетов</a></li>';
+							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
 
 						if ($_SESSION['id_role'] == '3') { //пользователь
 							echo '<li><a href="/">Главная</a></li>';
 							echo '<li><a href="/ticket/create">Создать тикет</a></li>';
 							echo '<li><a href="/ticket/browse">Список тикетов</a></li>';
+							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
 						//<li><a href="/">Главная</a></li>
 						//<li><a href="/guest/page/1">Гостевая</a></li>
@@ -290,7 +293,7 @@
 					<br class="clearfix" />
 				</div>
 				<div id="profile">
-					<p><a href="/user/profile"><?php echo $_SESSION['login']; ?></a></p>
+					<p><?php echo $_SESSION['login']; ?></p>
 					<a href="/user/leave">Выход</a>
 				</div>
 			</div>

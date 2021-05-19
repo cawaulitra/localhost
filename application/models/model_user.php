@@ -4,6 +4,37 @@ session_start();
 
 class Model_User extends Model
 {
+	public function profileAction($post) 
+	{
+		$mysqli = $this->sql_connect();
+		if ($mysqli->connect_error){	
+			die('Error');	
+		}
+		$mysqli->set_charset('utf8');
+
+		if (isset($post['login'])) {
+			$string = "UPDATE `users` SET `login` = '". $post['login'] ."' WHERE `users`.`id` = ". $_SESSION['id'];
+			$mysqli->query($string);
+			if ($mysqli->error == true) {
+				$error = "Что-то пошло не так. Текст ошибки: ";
+			}
+			else {
+				$error = "Логин изменён!"
+			}
+		}
+
+		if (isset($post['fio'])) {
+			$string = "UPDATE `users` SET `fio` = '". $post['login'] ."' WHERE `users`.`id` = ". $_SESSION['id'];
+			$mysqli->query($string);
+			if ($mysqli->error == true) {
+				$error = "Что-то пошло не так. Текст ошибки: ";
+			}
+			else {
+				$error = "Имя изменено!"
+			}
+		}
+	}
+
 	public function registerAction($post) //регистрация
 	{
 		$data = [];

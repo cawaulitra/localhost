@@ -48,7 +48,7 @@ class Model_Ticket extends Model
             asort($tickets);
             $id_employee = $tickets[0]['id'];
 
-            $string = "INSERT INTO `tickets` VALUES (NULL, ". $_SESSION['id'] .", ". $id_employee. ", ". $post['title'].", ". $post['id_type'] .", ". $post['text'] .", '1', date('Y-m-d H:i:s'), NULL, NULL)";
+            $string = "INSERT INTO `tickets` VALUES (NULL, ". $_SESSION['id'] .", ". $id_employee. ", ". $post['title'] .", ". $post['id_type'] .", ". $post['text'] .", '1', date('Y-m-d H:i:s'), NULL, NULL)";
             $check = $mysqli->query($string);
             if ($check !== false) {
                 $data['success'] = true;
