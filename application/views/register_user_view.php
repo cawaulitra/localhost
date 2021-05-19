@@ -1,12 +1,14 @@
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
 <style>
+.register_user_main{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .login_page{
-	position:absolute;
-	left:50%;
-	top:50%;
-	margin-right: -50%;
-	transform:translate(-50%, -50%);
 	display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,14 +65,16 @@ a{
 	line-height: 16px;	
 }
 </style>
-<form action="/user/registerAction" method="post" class="login_page">
-	<div class="login_page">
-		<div class="plane">
-			Регистрация
+<div class="register_user_main">
+	<form action="/user/registerAction" method="post" class="login_page">
+		<div class="login_page">
+			<div class="plane">
+				Регистрация
+			</div>
+			<input type="text" class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off" />
+			<input type="password" class="input" name="password" placeholder="Введите пароль" autocomplete="off" />	
+			<button type="submit">Регистрация</button>
+			<a href="/user/login">Войти</a>
 		</div>
-		<input type="text" class="input" name="login" placeholder="Введите логин" style="margin-top:73px;" autocomplete="off">
-		<input type="password" class="input" name="password" placeholder="Введите пароль" autocomplete="off">	
-		<button type="submit">Регистрация</button>
-		<a href="/user/login">Войти</a>
-	</div>
-</form>
+	</form>
+</div>

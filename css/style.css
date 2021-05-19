@@ -67,9 +67,8 @@ a {
 }
 
 #content {
-	padding: 0 0 0 10px;
-	width: 615px;
-	margin: 0 0 0 285px;
+	width: 100vw;
+	height: 100vh;
 }
 
 #header{
@@ -204,7 +203,6 @@ a:hover{
 
 #wrapper {
 	width: 100%;
-	position: relative;
 	background: #FFF;
 	margin: 0 auto 0 auto;
 	border: solid 1px #f3f3f3;

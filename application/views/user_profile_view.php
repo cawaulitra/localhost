@@ -1,12 +1,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 <style>
+.user_profile_main{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .login_page{
-	position:absolute;
-	left:50%;
-	top:50%;
-	margin-right: -50%;
-	transform:translate(-50%, -50%);
 	display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +19,7 @@
 .input{
 	margin-bottom:40px;
 	width: 389px;
-	height: 57px;
+	height: 40px;
 	background: rgba(239, 238, 238, 0.4);
 	border-radius: 7px;
 	border: none;
@@ -60,7 +62,8 @@ a{
 	font-style: normal;
 	font-weight: normal;
 	font-size: 14px;
-	line-height: 16px;	
+	line-height: 16px;
+	cursor: pointer;
 }
 .name{
     font-family: Roboto;
@@ -77,44 +80,50 @@ a{
     font-weight: normal;
     font-size: 30px;
     line-height: 35px;
-
     color: #253254;
 }
 .text{
+	width: 100%;
     display: flex;
     flex-direction: row;
     align-items: baseline;
-
+    justify-content: space-between;
 }
 .text2{
+	width: 100%;
     display: flex;
     flex-direction: row;
     align-items: baseline;
-
+    justify-content: space-between;
 }
-.content{
+.user_profile_content{
+	box-sizing: border-box;
+	padding: 63px 55px 63px 55px;
+	width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+	align-items: center;
 }
 </style>
-<form action="/user/registerAction" method="post" class="login_page">
-	<div class="login_page">
-		<div class="plane">
-			Профиль
+<div class="user_profile_main">
+	<form action="/user/registerAction" method="post" class="login_page">
+		<div class="login_page">
+			<div class="plane">
+				Профиль
+			</div>
+			<div class="user_profile_content">
+				<div class="text">
+					<p class="name">Логин:</p>
+					<input type="text" class="data" placeholder="<?php echo $_SESSION['login']?>" />
+					<a>Изменить</a>
+				</div>
+				<div class="text2">
+					<p class="name">ФИО:</p>
+					<input type="text" class="data" placeholder="<?php echo $_SESSION['name']?>" />
+					<a>Изменить</a>
+				</div>
+				<a class="password">Изменить пароль</a>
+			</div>
 		</div>
-        <span class="content">
-            <div class="text">
-                <p class="name">Логин</p>
-                <p class="data"><?php echo $_SESSION['login']?></p>
-                <a>Изменить</a>
-            </div>
-            <div class="text2">
-                <p class="name">ФИО</p>
-                <p class="data"><?php echo $_SESSION['name']?></p>
-                <a>Изменить</a>
-            </div>
-            <a class="password">Изменить пароль</a>
-        </span>
-	</div>
-</form>
+	</form>
+</div>

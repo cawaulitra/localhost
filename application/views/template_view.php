@@ -8,7 +8,6 @@
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<style>	
 			* {
-				
 				margin: 0;
 				padding: 0;
 			}
@@ -25,7 +24,6 @@
 			body {
 				line-height: 1.75em;
 				overflow: hidden;
-
 			}
 
 			body,input {
@@ -75,13 +73,11 @@
 			}
 
 			#content {
-				padding: 0 0 0 10px;
-				width: 615px;
-				margin: 0 0 0 285px;
+				width: 100vw;
+				height: 100vh;
 			}
 
 			#header{
-
 				background-color: #598FFC;
 				height: 130px;
 				position: relative;
@@ -159,13 +155,9 @@
 			}
 
 			#page {
-
 				margin: 0;
 				height: calc(100vh - 130px);
-
 			}
-
-
 			#sidebar ul {
 				list-style: none;
 			}
@@ -297,18 +289,13 @@
 					<a href="/user/leave">Выход</a>
 				</div>
 			</div>
-			<div id="page"> 
-                
+			<div id="page">
 				<div id="content">
-					<div class="box">
-						<?php include 'application/views/'.$content_view; ?>
-					</div>
+					<?php include 'application/views/'.$content_view; ?>
 					<br class="clearfix" />
 				</div>
 				<br class="clearfix" />
 			</div>
-			
 		</div>
-
 	</body>
 </html>
