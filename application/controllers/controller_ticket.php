@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	// session_start();
 class Controller_ticket extends Controller
 {
     function __construct()
@@ -34,6 +34,24 @@ class Controller_ticket extends Controller
 		if (isset($_SESSION['login'])) {
 			$this->model->browse($page);
 			$this->view->generate('browse_ticket_view.php', 'template_view.php');
+		}
+		else {
+			header("Location: /");
+		}
+	}
+
+	function action_chat()
+    {
+		$post = $_POST;
+		if (isset($_SESSION['login'])) {
+			if(!empty($post)){
+				$data = $this->model->chating($post);
+				$this->view->generate('chat_view.php', 'template_view.php', $data);
+			}
+			else{
+				$data = $this->model->chating(null);
+				$this->view->generate('chat_view.php', 'template_view.php', $data);
+			}
 		}
 		else {
 			header("Location: /");
