@@ -56,4 +56,12 @@ class Model_Ticket extends Model
             else $data['success'] = false;
         }
     }
+
+    function browse($page) {
+
+    }
+
+    function view($id) {
+        echo $id;
+    }
 }

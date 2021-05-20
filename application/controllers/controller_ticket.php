@@ -29,7 +29,7 @@ class Controller_ticket extends Controller
 		}
     }
 
-    function action_browse()
+    function action_browse($page)
     {
 		if (isset($_SESSION['login'])) {
 			$this->model->browse($page);
@@ -37,6 +37,13 @@ class Controller_ticket extends Controller
 		}
 		else {
 			header("Location: /");
+		}
+	}
+
+	function action_view($id) {
+		if (isset($_SESSION['login'])) {
+			$data = $this->model->view($id);
+			$this->view->generate('ticket_view.php', 'template_view.php', $data);
 		}
 	}
 }
