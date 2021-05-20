@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	// session_start();
 class Controller_ticket extends Controller
 {
     function __construct()
@@ -40,6 +40,26 @@ class Controller_ticket extends Controller
 		}
 	}
 
+<<<<<<< HEAD
+	function action_chat()
+    {
+		$post = $_POST;
+		if (isset($_SESSION['login'])) {
+			if(!empty($post)){
+				$data = $this->model->chating($post);
+				$this->view->generate('chat_view.php', 'template_view.php', $data);
+			}
+			else{
+				$data = $this->model->chating(null);
+				$this->view->generate('chat_view.php', 'template_view.php', $data);
+			}
+		}
+		else {
+			header("Location: /");
+		}
+	}
+}
+=======
 	function action_view($id) {
 		if (isset($_SESSION['login'])) {
 			$data = $this->model->view($id);
@@ -47,3 +67,4 @@ class Controller_ticket extends Controller
 		}
 	}
 }
+>>>>>>> f69a85a2bd8a609729500502b52523766bd929d3

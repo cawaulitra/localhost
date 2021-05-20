@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
 class Model_Ticket extends Model
@@ -56,6 +56,39 @@ class Model_Ticket extends Model
             else $data['success'] = false;
         }
     }
+<<<<<<< HEAD
+    function chating($post) {
+		$data = [
+            "messages" => [],
+            "id" => [],
+        ];
+        $limit = 20;
+
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        if($post['text']){
+            $text = $post['text'];
+            $string3 = "INSERT INTO `messages` VALUES (NULL, 1, ".$_SESSION['id'].", '$text')";
+            $mysqli->query($string3);
+            header("Refresh: 0");
+        }
+
+        $string1 = "SELECT * FROM `messages` LIMIT $limit";
+        $res1 = $mysqli->query($string1);
+        while ($row1 = $res1->fetch_assoc()) {
+            $data['messages'][] = $row1['text'];
+            $data['id'][] = $row1['id'];
+        }
+
+        return $data;
+	}
+}
+?>
+=======
 
     function browse($page) {
 
@@ -65,3 +98,4 @@ class Model_Ticket extends Model
         echo $id;
     }
 }
+>>>>>>> f69a85a2bd8a609729500502b52523766bd929d3
