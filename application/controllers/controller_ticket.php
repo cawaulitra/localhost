@@ -45,7 +45,6 @@ class Controller_ticket extends Controller
 		}
 	}
 
-<<<<<<< HEAD
 	function action_chat()
     {
 		$post = $_POST;
@@ -63,8 +62,7 @@ class Controller_ticket extends Controller
 			header("Location: /");
 		}
 	}
-}
-=======
+
 	function action_view($id) {
 		if (isset($_SESSION['login'])) {
 			$data = $this->model->view($id);
@@ -72,4 +70,3 @@ class Controller_ticket extends Controller
 		}
 	}
 }
->>>>>>> f69a85a2bd8a609729500502b52523766bd929d3
