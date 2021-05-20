@@ -29,7 +29,7 @@ class Controller_ticket extends Controller
 		}
     }
 
-    function action_browse()
+    function action_browse($page)
     {
 		if (isset($_SESSION['login'])) {
 			$this->model->browse($page);
@@ -40,6 +40,7 @@ class Controller_ticket extends Controller
 		}
 	}
 
+<<<<<<< HEAD
 	function action_chat()
     {
 		$post = $_POST;
@@ -58,3 +59,12 @@ class Controller_ticket extends Controller
 		}
 	}
 }
+=======
+	function action_view($id) {
+		if (isset($_SESSION['login'])) {
+			$data = $this->model->view($id);
+			$this->view->generate('ticket_view.php', 'template_view.php', $data);
+		}
+	}
+}
+>>>>>>> f69a85a2bd8a609729500502b52523766bd929d3

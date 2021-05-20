@@ -56,6 +56,7 @@ class Model_Ticket extends Model
             else $data['success'] = false;
         }
     }
+<<<<<<< HEAD
     function chating($post) {
 		$data = [
             "messages" => [],
@@ -87,3 +88,14 @@ class Model_Ticket extends Model
 	}
 }
 ?>
+=======
+
+    function browse($page) {
+
+    }
+
+    function view($id) {
+        echo $id;
+    }
+}
+>>>>>>> f69a85a2bd8a609729500502b52523766bd929d3

@@ -48,6 +48,23 @@ table{
 td{
     word-wrap:break-word;
 }
+
+.status_1 {
+    color: #B7B7B7;
+}
+
+.status_2 {
+    color: #F6C972;
+}
+
+.status_3 {
+    color: #33AD64;
+}
+
+.status_1, .status_2, .status_3 {
+    font-weight: bold;
+    font-size: 20px;
+}
 </style>
 <div class="content-ticket">
     <div class="plane">
@@ -57,11 +74,25 @@ td{
     <div class="ticket">
         <table cellspacing="30px" width="1294px">
         <tr>
-            <td valign="middle" width="80px"><p><?php echo "52" ?></p></td>
-            <td valign="middle" width="400px"><p><?php echo "Titlewdcket" ?></p><td>
-            <td valign="middle" width="100px"><p><?php echo "Ожидание" ?></p></td>
-            <td valign="middle" width="150px"><p><a class="edit">Редактировать</a></p></td>
-            <td valign="middle" width="100px"><p><a class="delete">Удалить</a></p></td>
+            <td width="80px"><?php echo "52" ?></td>
+            <td width="500px"><?php echo "Titlewdcket" ?></td>
+            <td width="120px" class="status_3"><?php echo "Выполнен" ?></td>
+            <td width="150px"><a href="#" class="edit">Редактировать</a></td>
+            <td width="100px"><a href="#" class="delete">Удалить</a></td>
+        </tr>
+        <tr>
+            <td width="80px"><?php echo "52" ?></td>
+            <td width="500px"><?php echo "Titlewdcket" ?></td>
+            <td width="120px" class="status_2"><?php echo "В процессе" ?></td>
+            <td width="150px"><a href="#" class="edit">Редактировать</a></td>
+            <td width="100px"><a href="#" class="delete">Удалить</a></td>
+        </tr>
+        <tr>
+            <td width="80px"><?php echo "52" ?></td>
+            <td width="500px"><?php echo "Titlewdcket" ?></td>
+            <td width="120px" class="status_1"><?php echo "Ожидание" ?></td>
+            <td width="150px"><a href="#" class="edit">Редактировать</a></td>
+            <td width="100px"><a href="#" class="delete">Удалить</a></td>
         </tr>
         </table>
         <!--<Пагинация>-->

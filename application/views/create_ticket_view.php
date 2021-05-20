@@ -7,7 +7,8 @@
     align-content: center;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0px 1px 49px rgba(0, 0, 0, 0.14);
-    width: 600px;
+    width: 800px;
+    padding: 50px;
 }
 .text{
     font-family: Roboto;
@@ -32,6 +33,8 @@
     margin: 40px;
     display: flex;
     padding-left: 50px;
+
+
 
 }
 .radio{
@@ -59,7 +62,24 @@
 
     color: #070651;
 }
-
+textarea{
+    resize: none;
+    height: 70px;
+}
+button{
+    background: #598FFC;
+    border-radius: 7px;
+    width: 287px;
+    height: 57px;
+    border: none;
+    margin-top: 50px;
+    color: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 29px;
+}
 </style>
 <div class="content-create">
     <div class="plane">
@@ -67,12 +87,15 @@
     </div>
     <div class="create_form">
         <div class="main-opis">
-            <p>Название:</p>
+            <form class="main-opis" method="post" action="">
+            <p>Название: </p>
             <input>
             <p>Описание:</p>
             <textarea cols="25" ></textarea>
             <p:>Дополнительно</p>
             <input type="file">
+                <br>
+                <button type="submit">Создать</button>
         </div>
         <div class="radio">
             <p>Тип вопроса</p>
@@ -85,5 +108,6 @@
                 <option>dwadwadfwaf</option>
             </select>
         </div>
+        </form>
     </div>
 </div>
