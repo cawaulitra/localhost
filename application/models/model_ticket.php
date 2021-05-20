@@ -1,5 +1,9 @@
 <?php
+<<<<<<< Updated upstream
 // session_start();
+=======
+//session_start();
+>>>>>>> Stashed changes
 //header("Content-Type: text/html; charset=utf-8");
 
 class Model_Ticket extends Model
@@ -89,6 +93,30 @@ class Model_Ticket extends Model
 }
 ?>
 =======
+
+    function fetchTypes() {
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        $data = [];
+
+        $string = "SELECT * FROM `ticket_type`";
+        $check = $mysqli->query($string);
+        if ($check !== false) {
+            $check->fetch_assoc();
+                foreach ($check as $check) {
+                    $data['ticket_types'][] = [
+                        'id' => $check['id'],
+                        'name' => $check['name']
+                    ];
+                }
+        }
+        else die;
+        return $data;
+    }
 
     function browse($page) {
 

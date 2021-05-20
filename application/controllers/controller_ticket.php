@@ -1,5 +1,9 @@
 <?php
+<<<<<<< Updated upstream
 	// session_start();
+=======
+	//session_start();
+>>>>>>> Stashed changes
 class Controller_ticket extends Controller
 {
     function __construct()
@@ -11,7 +15,8 @@ class Controller_ticket extends Controller
     function action_create()
     {
 		if (isset($_SESSION['login'])) {
-			$this->view->generate('create_ticket_view.php', 'template_view.php');
+			$data = $this->model->fetchTypes();
+			$this->view->generate('create_ticket_view.php', 'template_view.php', $data);
 		}
 		else {
 			header("Location: /");

@@ -100,12 +100,14 @@ button{
         <div class="radio">
             <p>Тип вопроса</p>
             <select>
-                <option>dwadwadfwaf</option>
-                <option>dwadwadfwaf</option>
-                <option>dwadwadfwaf</option>
-                <option>dwadwadfwaf</option>
-                <option>dwadwadfwaf</option>
-                <option>dwadwadfwaf</option>
+                <option>---</option>
+                <?php 
+                    if (isset($data)) {
+                        foreach ($data['ticket_types'] as $type) {
+                            echo "<option>" . $type['name'] . "</option>";
+                        }
+                    }
+                ?>
             </select>
         </div>
         </form>
