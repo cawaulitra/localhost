@@ -1,9 +1,6 @@
 <?php
-<<<<<<< Updated upstream
-// session_start();
-=======
 //session_start();
->>>>>>> Stashed changes
+//session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
 class Model_Ticket extends Model
@@ -89,7 +86,6 @@ class Model_Ticket extends Model
 
         return $data;
 	}
-}
 
     function fetchTypes() {
         $mysqli = $this->sql_connect();

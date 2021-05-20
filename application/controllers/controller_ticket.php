@@ -1,9 +1,6 @@
 <?php
-<<<<<<< Updated upstream
 	// session_start();
-=======
 	//session_start();
->>>>>>> Stashed changes
 class Controller_ticket extends Controller
 {
     function __construct()
