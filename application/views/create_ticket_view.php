@@ -33,9 +33,6 @@
     margin: 40px;
     display: flex;
     padding-left: 50px;
-
-
-
 }
 .radio{
     display: flex;
@@ -81,35 +78,50 @@ button{
     line-height: 29px;
 }
 </style>
+<?php //var_dump ($data); ?>
 <div class="content-create">
     <div class="plane">
         <p class="text">Создание тикета</p>
     </div>
+    <?php 
+    if (isset($_SESSION['success'])) {
+        if ($_SESSION['success'] == true) {
+            echo "Тикет успешно создан! <br>";
+        }
+        else {
+            echo "Что-то пошло не так. <br>";
+            foreach ($_SESSION['message'] as $msg) echo $msg; 
+        }
+    }
+    
+    unset($_SESSION['success']);
+    unset($_SESSION['message']);
+    ?>
     <div class="create_form">
         <div class="main-opis">
-            <form class="main-opis" method="post" action="">
+            <form class="main-opis" method="post" action="/ticket/createAction">
             <p>Название: </p>
-            <input>
+            <input id="title" name="title">
             <p>Описание:</p>
-            <textarea cols="25" ></textarea>
+            <textarea cols="25" id="text" name="text"></textarea>
             <p:>Дополнительно</p>
             <input type="file">
-                <br>
-                <button type="submit">Создать</button>
+            <br>
+            <button type="submit">Создать</button>
         </div>
-        <div class="radio">
-            <p>Тип вопроса</p>
-            <select>
-                <option>---</option>
-                <?php 
-                    if (isset($data)) {
-                        foreach ($data['ticket_types'] as $type) {
-                            echo "<option>" . $type['name'] . "</option>";
+            <div class="radio">
+                <p>Тип вопроса</p>
+                <select id="id_type" name="id_type">
+                    <option>---</option>
+                    <?php 
+                        if (isset($data)) {
+                            foreach ($data['ticket_types'] as $type) {
+                                echo "<option>" . $type['name'] . "</option>";
+                            }
                         }
-                    }
-                ?>
-            </select>
-        </div>
+                    ?>
+                </select>
+            </div>
         </form>
     </div>
 </div>
