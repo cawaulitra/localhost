@@ -78,8 +78,20 @@ span h1{
     </div>
     <div class="chat-all">
         <span class="status"><!--Статус-->Ожидание</span>
-        <span class="chat"></span>
-        <span ><input></span>
-        <span><button>Отправить</button></span>
+
+        <form action="/ticket/chat" id='chat_form' method="post" >
+            <div class="chat">
+                <?php 
+                    for($i = 0; $i < count($data['messages']); $i++){
+                        echo($data['messages'][$i]."<br />");
+                    }
+                ?>
+            </div>
+            <?php echo("<input id='post_id' type='hidden' name='message_id' value='".$data['id'][count($data['id']) - 1]."' />") ?>
+            <input type="text" name="text" />
+            <input type="submit" value="Отправить">
+        </form>
+        <!-- <span ><input></span>
+        <span><button>Отправить</button></span> -->
     </div>
 </div>
