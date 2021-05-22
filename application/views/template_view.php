@@ -75,7 +75,8 @@
 
 			#content {
 				width: 100vw;
-				height: 100vh;
+				height: 90vh;
+				padding-top: -10%;
 				display: flex;
 				align-items: center;
 				justify-content: center;

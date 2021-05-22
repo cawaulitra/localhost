@@ -8,6 +8,8 @@
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0px 1px 49px rgba(0, 0, 0, 0.14);
     width: 1294px;
+    max-height: 600px;
+    overflow-y: scroll;
 }
 .text{
     font-family: Roboto;
@@ -28,7 +30,7 @@
     justify-content: space-between;
     padding: 0 50px;
 }
-a{
+.content-ticket a{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -41,11 +43,11 @@ a{
 .ticket{
     padding: 0 25px;
 }
-table{
+.content-ticket table{
     table-layout: fixed;
     width:100%
 }
-td{
+.content-ticket td{
     word-wrap:break-word;
 }
 
