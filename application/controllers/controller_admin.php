@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	// session_start();
 class Controller_admin extends Controller
 {
     function __construct()
