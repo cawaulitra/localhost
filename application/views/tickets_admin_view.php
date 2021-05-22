@@ -28,7 +28,7 @@
     justify-content: space-between;
     padding: 0 50px;
 }
-a{
+.content-ticket a{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -41,11 +41,11 @@ a{
 .ticket{
     padding: 0 25px;
 }
-table{
+.content-ticket table{
     table-layout: fixed;
     width:100%
 }
-td{
+.content-ticket td{
     word-wrap:break-word;
 }
 
