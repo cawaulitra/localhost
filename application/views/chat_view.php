@@ -29,7 +29,7 @@
     let form = document.getElementById('chat_form');
     let timerId = setTimeout(function tick() {
         req();
-        if(server_id !== post_id) form.submit();
+        if(server_id !== post_id) location.reload();
         timerId = setTimeout(tick, 2000);
     }, 2000);
 </script>

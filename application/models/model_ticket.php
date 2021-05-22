@@ -31,6 +31,7 @@ class Model_Ticket extends Model
                 $employees_string = "SELECT `users`.`id` FROM `users` INNER JOIN `allowed_types`  ON (`allowed_types`.`id_user` = `users`.`id`) WHERE `id_role` = '2' AND `id_type` = ". $post['id_type'];
                 $employees = [];
                 $tickets = [];
+                echo $employees_string;
                 $check = $mysqli->query($employees_string);
                 if ($check !== false) {
                     $checking = $check->fetch_assoc();
@@ -121,8 +122,7 @@ class Model_Ticket extends Model
             $check->fetch_assoc();
                 foreach ($check as $check) {
                     $data['ticket_types'][] = [
-                        'id' => $check['id'],
-                        'name' => $check['name']
+                        'name' => $check['id']. "-" .$check['name']
                     ];
                 }
         }
