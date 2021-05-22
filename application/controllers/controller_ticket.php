@@ -33,8 +33,9 @@ class Controller_ticket extends Controller
 		}
     }
 
-	function action_timer() {
-		$this->model->timer();
+	function action_timer($data_view) {
+		$data = $this->model->timer($data_view);
+		echo $data;
 	}
 
     function action_browse($page)

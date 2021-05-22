@@ -89,29 +89,53 @@ class Model_Ticket extends Model
         return $data;
     }
 
-    function timer() {
+    function timer($data_view) {
+        $data = [
+            "messages" => [],
+            "id_what" => [],
+            "id" => 0,
+            "server_id" => 0,
+        ];
+        $limit = 2000;
+
         $mysqli = $this->sql_connect();
         if ($mysqli->connect_error){
             die('Error');
         }
         $mysqli->set_charset('utf8');
 
-        $string = "SELECT `id` FROM `messages`";
-        $res = $mysqli->query($string);
-        $row = $res->fetch_assoc();
-        while ($row = $res->fetch_assoc()) {
-            $server_id = $row['id'];
+        if(!$data){
+            $string1 = "SELECT * FROM `messages` LIMIT $limit";
+            $res1 = $mysqli->query($string1);
+            while ($row1 = $res1->fetch_assoc()) {
+                $data['messages'][] = $row1['text'];
+                $data['id_what'][] = $row1['id'];
+            }
+        }
+        else{
+            $string = "SELECT `id` FROM `messages`";
+            $res = $mysqli->query($string);
+            $row = $res->fetch_assoc();
+            while ($row = $res->fetch_assoc()) {
+                $server_id = $row['id'];
+            }
+            if($data_view !== $server_id){
+                $string1 = "SELECT * FROM `messages` LIMIT $limit";
+                $res1 = $mysqli->query($string1);
+                while ($row1 = $res1->fetch_assoc()) {
+                    $data['messages'][] = $row1['text'];
+                    $data['id_what'][] = $row1['id'];
+                }
+                $data['id'] = end($data['id_what']);
+                $data['server_id'] = $server_id;
+            }
         }
 
-        echo $server_id;
+        return json_encode($data);
     }
 
     function chating($post) {
-		$data = [
-            "messages" => [],
-            "id" => [],
-        ];
-        $limit = 20;
+        $limit = 2000;
 
         $mysqli = $this->sql_connect();
         if ($mysqli->connect_error){
@@ -119,21 +143,10 @@ class Model_Ticket extends Model
         }
         $mysqli->set_charset('utf8');
 
-        if($post['text']){
-            $text = $post['text'];
-            $string3 = "INSERT INTO `messages` VALUES (NULL, 1, ".$_SESSION['id'].", '$text')";
-            $mysqli->query($string3);
-            header("Refresh: 0");
-        }
-
-        $string1 = "SELECT * FROM `messages` LIMIT $limit";
-        $res1 = $mysqli->query($string1);
-        while ($row1 = $res1->fetch_assoc()) {
-            $data['messages'][] = $row1['text'];
-            $data['id'][] = $row1['id'];
-        }
-
-        return $data;
+        $text = $post['text'];
+        $string3 = "INSERT INTO `messages` VALUES (NULL, 1, ".$_SESSION['id'].", '$text')";
+        $mysqli->query($string3);
+        $this->timer(null);
 	}
 
     function fetchTypes() {
