@@ -48,7 +48,7 @@ button{
 	line-height: 49px;
 }
 
-a{
+.user_profile_content a{
 	padding: 5px 20px;
 	height: 27px;
 	border-radius: 7px;
