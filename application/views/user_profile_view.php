@@ -103,6 +103,9 @@ button{
     flex-direction: column;
 	align-items: center;
 }
+input{
+	margin-left: 5%;
+}
 </style>
 
 	<form action="/user/registerAction" method="post" class="login_page">
@@ -113,11 +116,11 @@ button{
 			<div class="user_profile_content">
 				<div class="text">
 					<p class="name">Логин:</p>
-					<p class="data"><?php echo $_SESSION['login']?></p>
+					<input type="text" placeholder="<?php echo $_SESSION['login']?>" name="login">
 				</div>
 				<div class="text2">
 					<p class="name">ФИО:</p>
-					<p class="data"><?php echo $_SESSION['name']?></p>
+					<input type="text" placeholder="<?php echo $_SESSION['name']?>" name="fio">
 				</div>
 				<a class="password">Изменить профиль</a>
 			</div>
