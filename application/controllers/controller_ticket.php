@@ -25,6 +25,7 @@ class Controller_ticket extends Controller
         if (isset($_SESSION['login'])) {
             $this->model->createAction($_POST);
 			$data = $this->model->fetchTypes();
+			unset($_POST['']);
 			$this->view->generate('create_ticket_view.php', 'template_view.php', $data);
 		}
 		else {

@@ -28,10 +28,10 @@ class Model_Ticket extends Model
                 //после этого делаем count-запрос на каждого сотрудника, сколько активных тикетов на данный момент у каждого сотрудника (id_status != Completed)
                 //сравниваем полученные count-результаты, берём сотрудника с наименьшим количеством активных тикетов и подставляем его в id_employee в tickets
                 //если таких сотрудников несколько - берём первого сотрудника с наименьшим кол-вом активных тикетов (не хочу рандомом заниматься)
+                $post['id_type'] = preg_replace('/[^0-9]/', '', $post['id_type']);
                 $employees_string = "SELECT `users`.`id` FROM `users` INNER JOIN `allowed_types`  ON (`allowed_types`.`id_user` = `users`.`id`) WHERE `id_role` = '2' AND `id_type` = ". $post['id_type'];
                 $employees = [];
                 $tickets = [];
-                echo $employees_string;
                 $check = $mysqli->query($employees_string);
                 if ($check !== false) {
                     $checking = $check->fetch_assoc();
@@ -44,29 +44,40 @@ class Model_Ticket extends Model
                 else {
                     $_SESSION['success'] = false;
                     $_SESSION['message'][] = "Нет нужных сотрудников на вопрос.";
+                    echo $employees_string;
                     //die; 
                 }
 
                 foreach ($employees as $employees) {
-                    $employees_string = "SELECT * FROM `tickets` WHERE `id_author` =". $employees['id'] ."AND `id_status` != '3'";
+                    $employees_string = "SELECT * FROM `tickets` WHERE `id_author` = ". $employees['id'] ." AND `id_status` != '3'";
                     $check = $mysqli->query($employees_string);
                     if ($check !== false) {
-                        $checking = $check->fetch_assoc();
-                        $tickets[] = [
-                            'id' => $employees['id'],
-                            'total' => $checking->num_rows
-                        ];
+                        //echo $employees_string;
+                        if ($check->fetch_assoc()) {
+                            $tickets[] = [
+                                'id' => $employees['id'],
+                                'total' => $checking->num_rows
+                            ];
+                        }
+                        else {
+                            $tickets[] = [
+                                'id' => $employees['id'],
+                                'total' => 0
+                            ];
+                        }
                     }
                     else {
                         $_SESSION['success'] = false;
                         $_SESSION['message'][] = "Сотрудники не существуют?";
+                        echo $employees_string;
                         //die; 
                     }
 
                 asort($tickets);
                 $id_employee = $tickets[0]['id'];
 
-                $string = "INSERT INTO `tickets` VALUES (NULL, ". $_SESSION['id'] .", ". $id_employee. ", ". $post['title'] .", ". $post['id_type'] .", ". $post['text'] .", '1', date('Y-m-d H:i:s'), NULL, NULL)";
+                $string = "INSERT INTO `tickets` VALUES (NULL, '". $_SESSION['id'] ."', '". $id_employee. "', '". $post['title'] ."', '". $post['id_type'] ."', '". $post['text'] ."', '1', '" . date('Y-m-d H:i:s') . "', NULL, NULL)";
+               // echo $string;
                 $check = $mysqli->query($string);
                 if ($check !== false) {
                     $_SESSION['success'] = true;
@@ -122,7 +133,7 @@ class Model_Ticket extends Model
             $check->fetch_assoc();
                 foreach ($check as $check) {
                     $data['ticket_types'][] = [
-                        'name' => $check['id']. "-" .$check['name']
+                        'name' => $check['id']. " - " .$check['name']
                     ];
                 }
         }

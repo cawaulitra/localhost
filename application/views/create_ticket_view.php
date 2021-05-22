@@ -84,6 +84,7 @@ button{
         <p class="text">Создание тикета</p>
     </div>
     <?php 
+    //var_dump($_SESSION);
     if (isset($_SESSION['success'])) {
         if ($_SESSION['success'] == true) {
             echo "Тикет успешно создан! <br>";
@@ -93,7 +94,6 @@ button{
             foreach ($_SESSION['message'] as $msg) echo $msg; 
         }
     }
-    
     unset($_SESSION['success']);
     unset($_SESSION['message']);
     ?>

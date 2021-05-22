@@ -63,6 +63,7 @@ class Controller_user extends Controller
  	
 	function action_leave() {
 		unset($_SESSION['login']);
+		unset($_SESSION['name']);
 		unset($_SESSION['id']);
 		unset($_SESSION['id_role']);
 		unset($_SESSION['success']);
