@@ -95,3 +95,28 @@ span h1{
         <span><button>Отправить</button></span> -->
     </div>
 </div>
+<script>
+    let server_id = 0;
+    let post_input = document.getElementById('post_id');
+    let post_id = post_input.value;
+    const req = () => {
+        $.ajax({
+            url: '/ticket/timer',
+            type: 'GET',
+            success: (res) => {
+                server_id = res;
+            }
+        });
+        server_id = Number(server_id);
+        post_id = Number(post_id);
+    }
+    req();
+    let form = document.getElementById('chat_form');
+    let timerId = setTimeout(function tick() {
+        req();
+        console.log(server_id);
+        console.log(post_id);
+        if (server_id === post_id) location.reload();
+        timerId = setTimeout(tick, 2000);
+    }, 2000);
+</script>
