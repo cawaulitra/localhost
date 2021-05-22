@@ -16,7 +16,7 @@
     let post_id = post_input.value;
     const req = () => {
         $.ajax({
-            url: '../../js/timer.php',
+            url: '/ticket/timer',
             type: 'GET',
             success: (res) => {
                 server_id = res;
@@ -29,7 +29,9 @@
     let form = document.getElementById('chat_form');
     let timerId = setTimeout(function tick() {
         req();
-        if(server_id !== post_id) location.reload();
+        console.log(server_id);
+        console.log(post_id);
+        if (server_id === post_id) location.reload();
         timerId = setTimeout(tick, 2000);
     }, 2000);
 </script>

@@ -33,6 +33,10 @@ class Controller_ticket extends Controller
 		}
     }
 
+	function action_timer() {
+		$this->model->timer();
+	}
+
     function action_browse($page)
     {
 		if (isset($_SESSION['login'])) {
