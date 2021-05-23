@@ -274,14 +274,14 @@
 
 						if ($_SESSION['id_role'] == '2') { //сотрудник
 							echo '<li><a href="/">Главная</a></li>';
-							echo '<li><a href="/ticket/browse">Список тикетов</a></li>';
+							echo '<li><a href="/ticket/browse/1">Список тикетов</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
 
 						if ($_SESSION['id_role'] == '3') { //пользователь
 							echo '<li><a href="/">Главная</a></li>';
 							echo '<li><a href="/ticket/create">Создать тикет</a></li>';
-							echo '<li><a href="/ticket/browse">Список тикетов</a></li>';
+							echo '<li><a href="/ticket/browse/1">Список тикетов</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
 						//<li><a href="/">Главная</a></li>
