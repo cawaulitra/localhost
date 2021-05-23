@@ -67,36 +67,56 @@
     font-weight: bold;
     font-size: 20px;
 }
+
+#curr {
+    color: red;
+}
+
+#diff {
+    color: #598FFC;
+}
 </style>
 <div class="content-ticket">
     <div class="plane">
     <p class="text">Список тикетов</p>
-    <input name="search" placeholder="Введите название...">
     </div>
     <div class="ticket">
+        <div class="pagination">
+            <?php
+                for ($i = 1; $i <= $data[0]; $i++)
+                {
+                    if ($i != $data[1]) {
+                        echo "<a href='/admin/users/$i' id='diff'>$i</a>"; //неактивная
+                    }
+                    else {
+                        echo "<a href='/admin/users/$i' id='curr'>$i</a>"; //активная
+                    }
+                }
+            ?>
+        </div>
         <table cellspacing="30px" width="1294px">
-        <tr>
-            <td width="80px"><?php echo "52" ?></td>
-            <td width="500px"><?php echo "Titlewdcket" ?></td>
-            <td width="120px" class="status_3"><?php echo "Выполнен" ?></td>
-            <td width="150px"><a href="#" class="edit">Редактировать</a></td>
-            <td width="100px"><a href="#" class="delete">Удалить</a></td>
-        </tr>
-        <tr>
-            <td width="80px"><?php echo "52" ?></td>
-            <td width="500px"><?php echo "Titlewdcket" ?></td>
-            <td width="120px" class="status_2"><?php echo "В процессе" ?></td>
-            <td width="150px"><a href="#" class="edit">Редактировать</a></td>
-            <td width="100px"><a href="#" class="delete">Удалить</a></td>
-        </tr>
-        <tr>
-            <td width="80px"><?php echo "52" ?></td>
-            <td width="500px"><?php echo "Titlewdcket" ?></td>
-            <td width="120px" class="status_1"><?php echo "Ожидание" ?></td>
-            <td width="150px"><a href="#" class="edit">Редактировать</a></td>
-            <td width="100px"><a href="#" class="delete">Удалить</a></td>
-        </tr>
+        <?php
+                foreach ($data['tickets'] as $ticket) {
+                    echo "<tr>";
+                    echo "<td width='80px'>". $ticket['id'] ."</td>";
+                    echo "<td width='500px'><a href='/admin/view_ticket/". $ticket['id'] ."'>". $ticket['title'] ."</a></td>";
+                    if ($ticket['id_status'] == 1) {
+                        echo "<td width='120px' class='status_1'>Ожидание</td>";
+                    }
+                    elseif ($ticket['id_status'] == 2) {
+                        echo "<td width='120px' class='status_2'>В процессе</td>";
+                    }
+                    elseif ($ticket['id_status'] == 3) {
+                        echo "<td width='120px' class='status_3'>Выполнен</td>";
+                    }
+                    else {
+                        echo "<td width='120px'>---</td>";
+                    }
+                    echo "<td width='150px'><a href='/admin/edit_ticket/". $ticket['id'] ."' class='edit'>Редактировать</a></td>";
+                    echo "<td width='100px'><a href='/admin/delete_ticket/". $ticket['id'] ."' class='delete'>Удалить</a></td>";
+                    echo "</tr>";
+                }
+        ?>
         </table>
-        <!--<Пагинация>-->
     </div>
 </div>

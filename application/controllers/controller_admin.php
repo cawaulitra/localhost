@@ -58,6 +58,19 @@ class Controller_admin extends Controller
 		}
   }
 
+  function action_delete_ticket($id) {
+    if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
+      if($_SESSION['id_role'] == 1) { //админ
+        header("Location: /admin/tickets/1");
+        $data = $this->model->delete_ticket($id);
+        $this->view->generate('tickets_admin_view.php', 'template_view.php', $data);
+      }
+  }
+  else {
+    header("Location: /");
+  }
+}
+
     function action_edit_user($id) {
         if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
           if($_SESSION['id_role'] == 1) { //админ

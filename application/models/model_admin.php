@@ -93,4 +93,21 @@ class Model_Admin extends Model
     function get_ticket($id) {
 
     }
+
+    function delete_ticket($id) {
+        $data = [];
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        $string = "DELETE FROM `tickets` WHERE `tickets`.`id` = $id";
+        $result = $mysqli->query($string);
+        if ($result == true) 
+            $data['success'] = true;
+        else 
+            $data['success'] = false;
+        return $data;
+    }
 }

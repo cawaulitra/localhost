@@ -65,6 +65,19 @@
     <p class="text">Список пользователь</p>
     </div>
     <div class="ticket">
+        <div class="pagination">
+            <?php
+                for ($i = 1; $i <= $data[0]; $i++)
+                {
+                    if ($i != $data[1]) {
+                        echo "<a href='/admin/users/$i' id='diff'>$i</a>"; //неактивная
+                    }
+                    else {
+                        echo "<a href='/admin/users/$i' id='curr'>$i</a>"; //активная
+                    }
+                }
+            ?>
+        </div>
         <table cellspacing="30px" width="1294px">
             <?php
                 foreach ($data['users'] as $user) {
@@ -93,18 +106,5 @@
                 }
             ?>
         </table>
-        <div class="pagination">
-            <?php
-                for ($i = 1; $i <= $data[0]; $i++)
-                {
-                    if ($i != $data[1]) {
-                        echo "<a href='/admin/users/$i' id='diff'>$i</a>"; //неактивная
-                    }
-                    else {
-                        echo "<a href='/admin/users/$i' id='curr'>$i</a>"; //активная
-                    }
-                }
-            ?>
-        </div>
     </div>
 </div>
