@@ -70,23 +70,23 @@
                 foreach ($data['users'] as $user) {
                     echo "<tr>";
                     echo "<td width='50px'>" . $user['id'] . "</td>";
-                    echo "<td width='200px'>" . $user['login'] . "</td>";
+                    echo "<td width='200px'><a href='/admin/view_user/". $user['id'] ."'>" . $user['login'] . "</a></td>";
                     echo "<td width='200px'>" . $user['name'] . "</td>";
 
                     if ($user['id_role'] == 1) { //админ
                         echo "<td width='100px'>Администратор</td>";
-                        echo "<td width='120px'><a href='#'>Редактировать</a></td>";
+                        echo "<td width='120px'><a href='/admin/edit_user/". $user['id'] ."'>Редактировать</a></td>";
                         echo "<td width='100px'></td>";
                     }
                     if ($user['id_role'] == 2) { //сотрудник
                         echo "<td width='100px'>Сотрудник</td>";
-                        echo "<td width='120px'><a href='#'>Редактировать</a></td>";
-                        echo "<td width='100px'><a href='#'>Статистика</a></td>";
+                        echo "<td width='120px'><a href='/admin/edit_user/". $user['id'] ."'>Редактировать</a></td>";
+                        echo "<td width='100px'><a href='/admin/statistics/". $user['id'] ."'>Статистика</a></td>";
                     }
 
                     if ($user['id_role'] == 3) { //юзверь
                         echo "<td width='100px'>Пользователь</td>";
-                        echo "<td width='120px'><a href='#'>Редактировать</a></td>";
+                        echo "<td width='120px'><a href='/admin/edit_user/". $user['id'] ."'>Редактировать</a></td>";
                         echo "<td width='100px'></td>";
                     }
                     echo "</tr>";
