@@ -67,7 +67,7 @@ class Controller_admin extends Controller
       }
   }
   else {
-    header("Location: /");
+    header("Location: ". $_SERVER['HTTP_REFERER'] ."");
   }
 }
 

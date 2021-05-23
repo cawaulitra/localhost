@@ -284,8 +284,6 @@
 							echo '<li><a href="/ticket/browse/1">Список тикетов</a></li>';
 							echo '<li><a href="/user/profile">Профиль</a></li>';
 						}
-						//<li><a href="/">Главная</a></li>
-						//<li><a href="/guest/page/1">Гостевая</a></li>
 						?>
 					</ul>
 					<br class="clearfix" />

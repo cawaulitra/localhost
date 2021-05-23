@@ -96,26 +96,26 @@
         </div>
         <table cellspacing="30px" width="1294px">
         <?php
-                foreach ($data['tickets'] as $ticket) {
-                    echo "<tr>";
-                    echo "<td width='80px'>". $ticket['id'] ."</td>";
-                    echo "<td width='500px'><a href='/admin/view_ticket/". $ticket['id'] ."'>". $ticket['title'] ."</a></td>";
-                    if ($ticket['id_status'] == 1) {
-                        echo "<td width='120px' class='status_1'>Ожидание</td>";
-                    }
-                    elseif ($ticket['id_status'] == 2) {
-                        echo "<td width='120px' class='status_2'>В процессе</td>";
-                    }
-                    elseif ($ticket['id_status'] == 3) {
-                        echo "<td width='120px' class='status_3'>Выполнен</td>";
-                    }
-                    else {
-                        echo "<td width='120px'>---</td>";
-                    }
-                    echo "<td width='150px'><a href='/admin/edit_ticket/". $ticket['id'] ."' class='edit'>Редактировать</a></td>";
-                    echo "<td width='100px'><a href='/admin/delete_ticket/". $ticket['id'] ."' class='delete'>Удалить</a></td>";
-                    echo "</tr>";
+            foreach ($data['tickets'] as $ticket) {
+                echo "<tr>";
+                echo "<td width='80px'>". $ticket['id'] ."</td>";
+                echo "<td width='500px'><a href='/admin/view_ticket/". $ticket['id'] ."'>". $ticket['title'] ."</a></td>";
+                if ($ticket['id_status'] == 1) {
+                    echo "<td width='120px' class='status_1'>Ожидание</td>";
                 }
+                elseif ($ticket['id_status'] == 2) {
+                    echo "<td width='120px' class='status_2'>В процессе</td>";
+                }
+                elseif ($ticket['id_status'] == 3) {
+                    echo "<td width='120px' class='status_3'>Выполнен</td>";
+                }
+                else {
+                    echo "<td width='120px'>---</td>";
+                }
+                echo "<td width='150px'><a href='/admin/edit_ticket/". $ticket['id'] ."' class='edit'>Редактировать</a></td>";
+                echo "<td width='100px'><a href='/admin/delete_ticket/". $ticket['id'] ."' class='delete'>Удалить</a></td>";
+                echo "</tr>";
+            }
         ?>
         </table>
     </div>
