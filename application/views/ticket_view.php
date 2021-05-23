@@ -70,11 +70,21 @@ span h1{
 </style>
 <div class="main-content">
     <div class="info">
-        <span><h1>ID 123</h1><h2 style="    padding-left: 20px;">Название тикета</h2></span>
-        <span><p class="text">afwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuafafwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuafafwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuaf</p></span>
-        <span class="images-info"></span>
-        <span class="creator-info"><h2>Автор: </h2><p>Автор Папа Дядя Паша</p></span>
-        <span class="worker-info"><h2>Сотрудник: </h2><p>Сотрудник Андрей</p></span>
+        <?php
+        var_dump ($data);
+            if (isset($data)) {
+                if (isset($data['success'])) {
+                    echo "У вас нет прав для просмотра этого тикета.";
+                }
+                else {
+           /* <span><h1>ID 123</h1><h2 style="padding-left: 20px;">Название тикета</h2></span>
+            <span><p class="text">afwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuafafwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuafafwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuaf</p></span>
+            <span class="images-info"></span>
+            <span class="creator-info"><h2>Автор: </h2><p>Автор Папа Дядя Паша</p></span>
+            <span class="worker-info"><h2>Сотрудник: </h2><p>Сотрудник Андрей</p></span>*/
+                }
+            }
+        ?>
     </div>
     <div class="chat-all">
         <span class="status"><!--Статус-->Ожидание</span>

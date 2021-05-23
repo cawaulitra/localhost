@@ -269,6 +269,28 @@ class Model_Ticket extends Model
     }
 
     function view($id) {
-        echo $id;
+        $data = [];
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
         }
+        $mysqli->set_charset('utf8');
+
+        $string = "SELECT * FROM `tickets` WHERE `id_author` = ". $_SESSION['id'] ." AND `id` = $id";
+        $check = $mysqli->query($string);
+        //echo $string;
+
+        if ($check = $check->fetch_assoc()) {
+            $data['ticket'][] = [
+                'id' => $check['id'], 
+                'title' => $check['title'], 
+                'id_author' => $check['id_author'],
+                'id_employee' => $check['id_employee'],
+                'text' => $check['text'],
+                'id_status' => $check['id_status']
+            ];
+        }
+        else $data['success'] = false;
+        return $data;
     }
+}
