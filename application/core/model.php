@@ -7,7 +7,7 @@ class Model
     //������������ � ��
     public function sql_connect()
 	{
-	   $sql = new mysqli("localhost", "root", "root", "billing");
+	   $sql = new mysqli("localhost", "root", "IfLebDNk57t", "billing");
        
 	   return $sql;
     }

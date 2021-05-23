@@ -33,11 +33,6 @@ class Controller_ticket extends Controller
 		}
     }
 
-	function action_timer($data_view) {
-		$data = $this->model->timer($data_view);
-		echo $data;
-	}
-
     function action_browse($page)
     {
 		if (isset($_SESSION['login'])) {
@@ -49,18 +44,28 @@ class Controller_ticket extends Controller
 		}
 	}
 
+	function action_timer() {
+		$post = $_POST;
+		$data = $this->model->timer($post['post_id']);
+		echo $data;
+	}
+
+	function action_chatAct() {
+		$post = $_POST;
+
+		if(!empty($post['text'])){
+			$data = $this->model->chating($post);
+		}
+		else{
+			$data = $this->model->chating(null);
+		}
+		echo($data);
+	}
+
 	function action_chat()
     {
-		$post = $_POST;
 		if (isset($_SESSION['login'])) {
-			if(!empty($post)){
-				$data = $this->model->chating($post);
-				$this->view->generate('chat_view.php', 'template_view.php', $data);
-			}
-			else{
-				$data = $this->model->chating(null);
-				$this->view->generate('chat_view.php', 'template_view.php', $data);
-			}
+			$this->view->generate('chat_view.php', 'template_view.php');
 		}
 		else {
 			header("Location: /");

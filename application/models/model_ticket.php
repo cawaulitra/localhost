@@ -114,9 +114,45 @@ class Model_Ticket extends Model
     function timer($data_view) {
         $data = [
             "messages" => [],
-            "id_what" => [],
-            "id" => 0,
+            "id_what" => 0,
             "server_id" => 0,
+            "is_new" => false,
+        ];
+        $id_what = [];
+        $limit = 2000;
+
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        $string = "SELECT `id` FROM `messages`";
+        $res = $mysqli->query($string);
+        $row = $res->fetch_assoc();
+        while ($row = $res->fetch_assoc()) {
+            $server_id = $row['id'];
+        }
+        if($data_view !== $server_id){
+            $data['is_new'] = true;
+            $string1 = "SELECT * FROM `messages` LIMIT $limit";
+            $res1 = $mysqli->query($string1);
+            while ($row1 = $res1->fetch_assoc()) {
+                $data['messages'][] = $row1['text'];
+                $id_what[] = $row1['id'];
+            }
+            $data['server_id'] = end($id_what);
+        }
+        $data['server_id'] = $server_id;
+        $data['id_what'] = $data_view;
+
+        return json_encode($data);
+    }
+
+    function chating($post) {
+        $data = [
+            'messages' => [],
+            'id' => [],
         ];
         $limit = 2000;
 
@@ -126,49 +162,19 @@ class Model_Ticket extends Model
         }
         $mysqli->set_charset('utf8');
 
-        if(!$data){
-            $string1 = "SELECT * FROM `messages` LIMIT $limit";
-            $res1 = $mysqli->query($string1);
-            while ($row1 = $res1->fetch_assoc()) {
-                $data['messages'][] = $row1['text'];
-                $data['id_what'][] = $row1['id'];
-            }
+        if(!empty($post)){
+            $text = $post['text'];
+            $string3 = "INSERT INTO `messages` VALUES (NULL, 1, ".$_SESSION['id'].", '$text')";
+            $mysqli->query($string3);
         }
-        else{
-            $string = "SELECT `id` FROM `messages`";
-            $res = $mysqli->query($string);
-            $row = $res->fetch_assoc();
-            while ($row = $res->fetch_assoc()) {
-                $server_id = $row['id'];
-            }
-            if($data_view !== $server_id){
-                $string1 = "SELECT * FROM `messages` LIMIT $limit";
-                $res1 = $mysqli->query($string1);
-                while ($row1 = $res1->fetch_assoc()) {
-                    $data['messages'][] = $row1['text'];
-                    $data['id_what'][] = $row1['id'];
-                }
-                $data['id'] = end($data['id_what']);
-                $data['server_id'] = $server_id;
-            }
+        $string1 = "SELECT * FROM `messages` LIMIT $limit";
+        $res1 = $mysqli->query($string1);
+        while ($row1 = $res1->fetch_assoc()) {
+            $data['messages'][] = $row1['text'];
+            $data['id'][] = $row1['id'];
         }
 
         return json_encode($data);
-    }
-
-    function chating($post) {
-        $limit = 2000;
-
-        $mysqli = $this->sql_connect();
-        if ($mysqli->connect_error){
-            die('Error');
-        }
-        $mysqli->set_charset('utf8');
-
-        $text = $post['text'];
-        $string3 = "INSERT INTO `messages` VALUES (NULL, 1, ".$_SESSION['id'].", '$text')";
-        $mysqli->query($string3);
-        $this->timer(null);
 	}
 
     function fetchTypes() {
