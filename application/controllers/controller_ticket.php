@@ -41,8 +41,8 @@ class Controller_ticket extends Controller
     function action_browse($page)
     {
 		if (isset($_SESSION['login'])) {
-			$this->model->browse($page);
-			$this->view->generate('browse_ticket_view.php', 'template_view.php');
+			$data = $this->model->browse($page);
+			$this->view->generate('browse_ticket_view.php', 'template_view.php', $data);
 		}
 		else {
 			header("Location: /");

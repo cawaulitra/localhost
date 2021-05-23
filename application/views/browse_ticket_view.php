@@ -67,29 +67,57 @@
     font-weight: bold;
     font-size: 20px;
 }
+#curr {
+    color: red;
+}
+
+#diff {
+    color: #598FFC;
+}
+
 </style>
 <div class="content-ticket">
     <div class="plane">
     <p class="text">Список тикетов</p>
-    <input name="search" placeholder="Введите название..."> <!-- тут будет поиск аджакс с заполнением тега <table></table> -->
     </div>
     <div class="ticket">
+        <div class="pagination">
+            <?php
+                for ($i = 1; $i <= $data[0]; $i++)
+                {
+                    if ($i != $data[1]) {
+                        echo "<a href='/admin/users/$i' id='diff'>$i</a>"; //неактивная
+                    }
+                    else {
+                        echo "<a href='/admin/users/$i' id='curr'>$i</a>"; //активная
+                    }
+                }
+            ?>
+        </div>
         <table cellspacing="30px" width="1294px">
-        <tr>
-            <td width="80px"><?php echo "52" ?></td>
-            <td width="500px"><?php echo "Titlewdcket" ?></td>
-            <td width="120px" class="status_3"><?php echo "Выполнен" ?></td>
-        </tr>
-        <tr>
-            <td width="80px"><?php echo "52" ?></td>
-            <td width="500px"><?php echo "Titlewdcket" ?></td>
-            <td width="120px" class="status_2"><?php echo "В процессе" ?></td>
-        </tr>
-        <tr>
-            <td width="80px"><?php echo "52" ?></td>
-            <td width="500px"><?php echo "Titlewdcket" ?></td>
-            <td width="120px" class="status_1"><?php echo "Ожидание" ?></td>
-        </tr>
+            <?php
+                if (isset($data['tickets'])) {
+                    foreach ($data['tickets'] as $ticket) {
+                            echo "<tr>";
+                            echo "<td width='80px'>". $ticket['id'] ."</td>";
+                            echo "<td width='500px'><a href='/ticket/view/". $ticket['id'] ."'>". $ticket['title'] ."</a></td>";
+                            if ($ticket['id_status'] == 1) {
+                                echo "<td width='120px' class='status_1'>Ожидание</td>";
+                            }
+                            elseif ($ticket['id_status'] == 2) {
+                                echo "<td width='120px' class='status_2'>В процессе</td>";
+                            }
+                            elseif ($ticket['id_status'] == 3) {
+                                echo "<td width='120px' class='status_3'>Выполнен</td>";
+                            }
+                            else {
+                                echo "<td width='120px'>---</td>";
+                            }
+                            echo "</tr>";
+                        }
+                    }
+                else echo "Список пуст.";
+            ?>
         </table>
         <!--<Пагинация>-->
     </div>
