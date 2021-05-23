@@ -58,7 +58,7 @@ class Model_Admin extends Model
         $limit = 30;
 		$offset = ($page - 1) * $limit;
 		
-		$str_count = "SELECT * FROM `users`";
+		$str_count = "SELECT * FROM `tickets`";
 
         $res_count = $mysqli->query($str_count);
 
@@ -72,7 +72,7 @@ class Model_Admin extends Model
 		$string = "SELECT `tickets`.`id`, `tickets`.`title`, `tickets`.`id_status` FROM `tickets` JOIN `status` ON (`tickets`.`id_status` = `status`.`id`) ORDER BY `tickets`.`id` DESC ";
 		$string_limit = $string . "LIMIT $limit OFFSET $offset";
 		
-        echo $string_limit;
+        //echo $string_limit;
 
 		$result = $mysqli->query($string_limit);
 
