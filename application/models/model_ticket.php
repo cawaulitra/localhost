@@ -276,16 +276,19 @@ class Model_Ticket extends Model
         }
         $mysqli->set_charset('utf8');
 
-        $string = "SELECT * FROM `tickets` WHERE `id_author` = ". $_SESSION['id'] ." AND `id` = $id";
+        $string = "SELECT `tickets`.*, `user1`.`login` AS `login1`, `user2`.`login` AS `login2` FROM `tickets`
+            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`)
+            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`)
+            WHERE `id_author` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
         $check = $mysqli->query($string);
         //echo $string;
 
         if ($check = $check->fetch_assoc()) {
-            $data['ticket'][] = [
+            $data['ticket'] = [
                 'id' => $check['id'], 
                 'title' => $check['title'], 
-                'id_author' => $check['id_author'],
-                'id_employee' => $check['id_employee'],
+                'author' => $check['login1'],
+                'employee' => $check['login2'],
                 'text' => $check['text'],
                 'id_status' => $check['id_status']
             ];

@@ -71,38 +71,46 @@ span h1{
 <div class="main-content">
     <div class="info">
         <?php
-        var_dump ($data);
+        //var_dump ($data);
             if (isset($data)) {
                 if (isset($data['success'])) {
                     echo "У вас нет прав для просмотра этого тикета.";
                 }
                 else {
-           /* <span><h1>ID 123</h1><h2 style="padding-left: 20px;">Название тикета</h2></span>
-            <span><p class="text">afwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuafafwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuafafwfwifwjauifuwaifiuwafiuwauifuiawjfoiwajioufjuwiafuighuiseahguiheugheuhgueguehugeughuehugeugeughuaf</p></span>
-            <span class="images-info"></span>
-            <span class="creator-info"><h2>Автор: </h2><p>Автор Папа Дядя Паша</p></span>
-            <span class="worker-info"><h2>Сотрудник: </h2><p>Сотрудник Андрей</p></span>*/
+                    echo "<span><h1>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
+                    echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
+                    echo "<span class='images-info'></span>";
+                    echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['author'] ."</p></span>";
+                    echo "<span class='worker-info'><h2>Сотрудник: </h2><p>". $data['ticket']['employee'] ."</p></span>";
                 }
             }
         ?>
     </div>
     <div class="chat-all">
-        <span class="status"><!--Статус-->Ожидание</span>
-
-        <form action="/ticket/chat" id='chat_form' method="post" >
-            <div class="chat">
-                <?php 
-                    for($i = 0; $i < count($data['messages']); $i++){
-                        echo($data['messages'][$i]."<br />");
-                    }
-                ?>
-            </div>
-            <?php echo("<input id='post_id' type='hidden' name='message_id' value='".$data['id'][count($data['id']) - 1]."' />") ?>
-            <input type="text" name="text" />
-            <input type="submit" value="Отправить">
-        </form>
-        <!-- <span ><input></span>
-        <span><button>Отправить</button></span> -->
+        <?php
+            if (isset($data)) {
+                if (isset($data['success'])) {
+                    echo "";
+                }
+                else {
+                    echo 
+                    "<span class='status'><!--Статус-->Ожидание</span>
+                    <form action='/ticket/chat' id='chat_form' method='post'>
+                    <div class='chat'>";
+                        for($i = 0; $i < count($data['messages']); $i++){
+                            echo($data['messages'][$i]."<br />");
+                        }
+                    echo "</div>";
+                    echo "<input id='post_id' type='hidden' name='message_id' value='".$data['id'][count($data['id']) - 1]."' />";
+                    echo "<input type='text' name='text' />
+                    <input type='submit' value='Отправить'>
+                </form>
+                <!-- <span ><input></span>
+                <span><button>Отправить</button></span> -->
+                    ";
+                }
+            }
+        ?>
     </div>
 </div>
 <script>
