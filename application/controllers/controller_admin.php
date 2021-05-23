@@ -8,11 +8,12 @@ class Controller_admin extends Controller
         $this->view = new View();
     }
 
-    function action_users()
+    function action_users($page)
     {
 		if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
             if($_SESSION['id_role'] == 1) { //админ
-			    $this->view->generate('users_admin_view.php', 'template_view.php');
+          $data = $this->model->get_users($page);
+			    $this->view->generate('users_admin_view.php', 'template_view.php' , $data);
             }
 		}
 		else {
@@ -20,11 +21,12 @@ class Controller_admin extends Controller
 		}
     }
 
-    function action_tickets()
+    function action_tickets($page)
     {
 		if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
             if($_SESSION['id_role'] == 1) { //админ
-			    $this->view->generate('tickets_admin_view.php', 'template_view.php');
+          $data = $this->model->get_tickets($page);
+			    $this->view->generate('tickets_admin_view.php', 'template_view.php', $data);
             }
 		}
 		else {
@@ -34,7 +36,8 @@ class Controller_admin extends Controller
 
     function action_view_user($id) {
         if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
-            if($_SESSION['id_role'] == 1) { //админ
+          if($_SESSION['id_role'] == 1) { //админ
+          $data = $this->model->get_user($id);
 			    $this->view->generate('view_user_admin_view.php', 'template_view.php');
             }
 		}
@@ -46,6 +49,7 @@ class Controller_admin extends Controller
     function action_view_ticket($id) {
         if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
             if($_SESSION['id_role'] == 1) { //админ
+          $data = $this->model->get_ticket($id);
 			    $this->view->generate('view_ticket_admin_view.php', 'template_view.php');
             }
 		}

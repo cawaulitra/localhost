@@ -51,22 +51,14 @@
     word-wrap:break-word;
 }
 
-.status_1 {
-    color: #B7B7B7;
+#curr {
+    color: red;
 }
 
-.status_2 {
-    color: #F6C972;
+#diff {
+    color: #598FFC;
 }
 
-.status_3 {
-    color: #33AD64;
-}
-
-.status_1, .status_2, .status_3 {
-    font-weight: bold;
-    font-size: 20px;
-}
 </style>
 <div class="content-ticket">
     <div class="plane">
@@ -74,78 +66,45 @@
     </div>
     <div class="ticket">
         <table cellspacing="30px" width="1294px">
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
-            <tr>
-                <td width="50px"><?php echo "52" ?></td>
-                <td width="100px"><?php echo "Poogiloy" ?></td>
-                <td width="300px"><?php echo "Виктор степанович" ?></td>
-                <td width="100px"><a><?php echo "Редактировать" ?></a></td>
-                <td width="100px"><a><?php echo "Статистика" ?></a></td>
-            </tr>
+            <?php
+                foreach ($data['users'] as $user) {
+                    echo "<tr>";
+                    echo "<td width='50px'>" . $user['id'] . "</td>";
+                    echo "<td width='200px'>" . $user['login'] . "</td>";
+                    echo "<td width='200px'>" . $user['name'] . "</td>";
 
+                    if ($user['id_role'] == 1) { //админ
+                        echo "<td width='100px'>Администратор</td>";
+                        echo "<td width='120px'><a href='#'>Редактировать</a></td>";
+                        echo "<td width='100px'></td>";
+                    }
+                    if ($user['id_role'] == 2) { //сотрудник
+                        echo "<td width='100px'>Сотрудник</td>";
+                        echo "<td width='120px'><a href='#'>Редактировать</a></td>";
+                        echo "<td width='100px'><a href='#'>Статистика</a></td>";
+                    }
+
+                    if ($user['id_role'] == 3) { //юзверь
+                        echo "<td width='100px'>Пользователь</td>";
+                        echo "<td width='120px'><a href='#'>Редактировать</a></td>";
+                        echo "<td width='100px'></td>";
+                    }
+                    echo "</tr>";
+                }
+            ?>
         </table>
-        <!--<Пагинация>-->
+        <div class="pagination">
+            <?php
+                for ($i = 1; $i <= $data[0]; $i++)
+                {
+                    if ($i != $data[1]) {
+                        echo "<a href='/admin/users/$i' id='diff'>$i</a>"; //неактивная
+                    }
+                    else {
+                        echo "<a href='/admin/users/$i' id='curr'>$i</a>"; //активная
+                    }
+                }
+            ?>
+        </div>
     </div>
 </div>
