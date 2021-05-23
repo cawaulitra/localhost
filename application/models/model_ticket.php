@@ -93,10 +93,10 @@ class Model_Ticket extends Model
                     $id_employee = $entry['id'];
                 }
             }   
-            echo $min;
-            echo "<pre>";
-            var_dump ($tickets);
-            echo "</pre>";
+            //echo $min;
+            //echo "<pre>";
+            //var_dump ($tickets);
+            //echo "</pre>";
             //var_dump ($tickets);
 
             $string = "INSERT INTO `tickets` VALUES (NULL, '". $_SESSION['id'] ."', '". $id_employee. "', '". $post['title'] ."', '". $post['id_type'] ."', '". $post['text'] ."', '1', '" . date('Y-m-d H:i:s') . "', NULL, NULL)";
