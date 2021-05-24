@@ -117,6 +117,8 @@ class Model_Ticket extends Model
             "id_what" => 0,
             "server_id" => 0,
             "is_new" => false,
+            "id_user" => [],
+            "my_id" => $_SESSION['id'],
         ];
         $id_what = [];
         $limit = 2000;
@@ -139,6 +141,7 @@ class Model_Ticket extends Model
             $res1 = $mysqli->query($string1);
             while ($row1 = $res1->fetch_assoc()) {
                 $data['messages'][] = $row1['text'];
+                $data['id_user'][] = $row1['id_user'];
                 $id_what[] = $row1['id'];
             }
             $data['server_id'] = end($id_what);
@@ -153,6 +156,8 @@ class Model_Ticket extends Model
         $data = [
             'messages' => [],
             'id' => [],
+            'id_user' => [],
+            "my_id" => $_SESSION['id'],
         ];
         $limit = 2000;
 
@@ -172,6 +177,7 @@ class Model_Ticket extends Model
         while ($row1 = $res1->fetch_assoc()) {
             $data['messages'][] = $row1['text'];
             $data['id'][] = $row1['id'];
+            $data['id_user'][] = $row1['id_user'];
         }
 
         return json_encode($data);

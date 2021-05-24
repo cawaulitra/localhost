@@ -62,16 +62,6 @@ class Controller_ticket extends Controller
 		echo($data);
 	}
 
-	function action_chat()
-    {
-		if (isset($_SESSION['login'])) {
-			$this->view->generate('chat_view.php', 'template_view.php');
-		}
-		else {
-			header("Location: /");
-		}
-	}
-
 	function action_view($id) {
 		if (isset($_SESSION['login'])) {
 			$data = $this->model->view($id);
