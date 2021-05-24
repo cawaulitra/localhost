@@ -112,6 +112,17 @@ input{
 		<div class="plane">
 			Профиль
 		</div>
+		<?php
+			if (isset($_SESSION['success'])) {
+				if($_SESSION['success'] == true) {
+					echo "Профиль изменен";
+				}
+				if($_SESSION['success'] == false) {
+					echo "";
+				}
+				unset($_SESSION['success']);
+			}
+		?>
 		<div class="user_profile_content">
 			<div class="text">
 				<p class="name">Логин:</p>
@@ -119,7 +130,7 @@ input{
 			</div>
 			<div class="text2">
 				<p class="name">ФИО:</p>
-				<input type="text" placeholder="<?php echo $_SESSION['name']?>" name="fio">
+				<input type="text" placeholder="<?php echo $_SESSION['name']?>" name="name">
 			</div>
 			<button type="submit">Изменить профиль</button>
 		</div>

@@ -128,30 +128,33 @@ class Model_User extends Model
 		}
 		$mysqli->set_charset('utf8');
 
-		if ($post['login'] == $_SESSION['login'] && $post['name'] == $_SESSION['name']) { //ничего не меняем
-			$_SESSION['success'] = false;
+		if(!empty($post['login']) || !empty($post['name'])) {
+			$string_start = "UPDATE `users` SET ";
+			if (!empty($post['login'])) {
+				$string = "`login` = '". $post['login']. "'";
+				if (!empty($post['name'])) {
+					$string .= ", `name` = '". $post['name'] ."' ";
+				}
+			}
+
+			if (empty($post['login']) && !empty($post['name'])) {
+				$string = "`name` = '". $post['name'] ."' ";
+			}
+	
+			$string_end = " WHERE `id` = '". $_SESSION['id'] ."'";
+			$string = $string_start . $string . $string_end;
 		}
-
-		if ($post['login'] != $_SESSION['login'] && $post['name'] == $_SESSION['name']) { //меняем логин
-			$string = "UPDATE `users` SET `name` = '". $post['name'] ."' WHERE `id` = '". $_SESSION['id'] ."'";
-			$_SESSION['success'] = true;
+		if(isset($string)) {
+			$check = $mysqli->query($string);
+			if ($check !== false) {
+				$_SESSION['success'] = true;
+				if(!empty($post['login'])) $_SESSION['login'] = $post['login'];
+				if(!empty($post['name'])) $_SESSION['name'] = $post['name'];
+			}
+			else $_SESSION['success'] = false;
 		}
-
-		if ($post['login'] == $_SESSION['login'] && $post['name'] != $_SESSION['name']) { //меняем имя
-			$string = "UPDATE `users` SET `login` = '". $post['login'] ."' WHERE `id` = '". $_SESSION['id'] ."'";
-			$_SESSION['success'] = true;
-		}
-
-		if ($post['login'] != $_SESSION['login'] && $post['name'] != $_SESSION['name']) { //меняем имя и логин
-			$string = "UPDATE `users` SET 	`name` = '". $post['name'] ."', 
-											`login` = '". $post['login'] ."'
-											 WHERE `id` = '". $_SESSION['id'] ."'";
-			$_SESSION['success'] = true;
-		}
-
-		echo $string;
-
-		var_dump($post);
+		//var_dump($post);
+		//var_dump($_SESSION);
 	}
 }
 
