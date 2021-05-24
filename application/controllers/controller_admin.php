@@ -126,7 +126,8 @@ class Controller_admin extends Controller
 function action_statistics($id) {
   if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
     if($_SESSION['id_role'] == 1) { //админ
-  $this->view->generate('statistics_admin_view.php', 'template_view.php');
+        $data = $this->model->view_statistic($id);
+         $this->view->generate('statistics_admin_view.php', 'template_view.php', $data);
     }
 }
 else 

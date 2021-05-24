@@ -152,4 +152,49 @@ class Model_Admin extends Model
     function edit_ticket($id) {
         
     }
+    function view_statistic($id){
+        $data = [];
+
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        $string = "SELECT * FROM `tickets` WHERE `id_employee` = '$id' AND `end_date` != 'NULL'";
+        $result = $mysqli->query($string);
+        $user = $mysqli->query("SELECT `login` FROM `users` WHERE `id` = '$id'")->fetch_assoc();
+        $count_complete = $result->num_rows;
+
+        $average_time = 0;
+        $total_time = 0;
+        while($fetch = $result->fetch_assoc()){
+            $time = strtotime($fetch['end_date']) - strtotime($fetch['start_date']);
+            $total_time += $time;
+        }
+
+        $user = $mysqli->query("SELECT `login` FROM `users` WHERE `id` = '$id'");
+        $fetch = $user->fetch_assoc();
+
+        $res = array();
+
+        $res['days'] = floor($total_time / 86400);
+        $total_time = $total_time % 86400;
+
+        $res['hours'] = floor($total_time / 3600);
+        $total_time = $total_time % 3600;
+
+        $res['minutes'] = floor($total_time / 60);
+        $res['secs'] = $total_time % 60;
+
+        $total_time /= $count_complete;
+        $data['stat'][] = [
+            'avg_time' => $res['days']." Д ".$res['hours']." Ч ".$res['minutes']." М",
+            'count_tickets' => $count_complete,
+            'user' => $fetch['login']
+        ];
+
+
+        return $data;
+    }
 }
