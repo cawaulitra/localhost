@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Май 22 2021 г., 09:36
+-- Время создания: Май 24 2021 г., 08:35
 -- Версия сервера: 5.6.34
 -- Версия PHP: 7.1.11
 
@@ -126,6 +126,15 @@ CREATE TABLE `status` (
   `name` varchar(63) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `status`
+--
+
+INSERT INTO `status` (`id`, `name`) VALUES
+(1, 'Ожидание'),
+(2, 'В процессе'),
+(3, 'Выполнен');
+
 -- --------------------------------------------------------
 
 --
@@ -161,7 +170,8 @@ INSERT INTO `tickets` (`id`, `id_author`, `id_employee`, `title`, `id_type`, `te
 (9, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:29:27', NULL, NULL),
 (10, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:29:43', NULL, NULL),
 (11, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:30:00', NULL, NULL),
-(12, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:31:31', NULL, NULL);
+(12, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:31:31', NULL, NULL),
+(13, 1, 3, 'hjhjh', 1, 'jkjkjk', 1, '2021-05-24 05:25:30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -302,13 +312,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT для таблицы `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT для таблицы `ticket_type`
