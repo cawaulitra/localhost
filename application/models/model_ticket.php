@@ -287,13 +287,21 @@ class Model_Ticket extends Model
             die('Error');
         }
         $mysqli->set_charset('utf8');
-
+        if ($_SESSION['id_role'] == 3) {
         $string = "SELECT `tickets`.*, `user1`.`login` AS `login1`, `user2`.`login` AS `login2` FROM `tickets`
             LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`)
             LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`)
             WHERE `id_author` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
+        }
+
+        if ($_SESSION['id_role'] == 2) {
+            $string = "SELECT `tickets`.*, `user1`.`login` AS `login1`, `user2`.`login` AS `login2` FROM `tickets`
+                LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`)
+                LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`)
+                WHERE `id_employee` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
+            }
         $check = $mysqli->query($string);
-        //echo $string;
+        
 
         if ($check = $check->fetch_assoc()) {
             $data['ticket'] = [

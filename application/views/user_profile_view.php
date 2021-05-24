@@ -107,22 +107,21 @@ input{
 	margin-left: 5%;
 }
 </style>
-
-	<form action="/user/registerAction" method="post" class="login_page">
-		<div class="login_page">
-			<div class="plane">
-				Профиль
-			</div>
-			<div class="user_profile_content">
-				<div class="text">
-					<p class="name">Логин:</p>
-					<input type="text" placeholder="<?php echo $_SESSION['login']?>" name="login">
-				</div>
-				<div class="text2">
-					<p class="name">ФИО:</p>
-					<input type="text" placeholder="<?php echo $_SESSION['name']?>" name="fio">
-				</div>
-				<a class="password">Изменить профиль</a>
-			</div>
+<form action="/user/registerAction" method="post" class="login_page">
+	<div class="login_page">
+		<div class="plane">
+			Профиль
 		</div>
-	</form>
+		<div class="user_profile_content">
+			<div class="text">
+				<p class="name">Логин:</p>
+				<input type="text" placeholder="<?php echo $_SESSION['login']?>" name="login">
+			</div>
+			<div class="text2">
+				<p class="name">ФИО:</p>
+				<input type="text" placeholder="<?php echo $_SESSION['name']?>" name="fio">
+			</div>
+			<a class="password">Изменить профиль</a>
+		</div>
+	</div>
+</form>

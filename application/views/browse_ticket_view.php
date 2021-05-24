@@ -83,6 +83,7 @@
     <div class="ticket">
         <div class="pagination">
             <?php
+                //var_dump($data);
                 for ($i = 1; $i <= $data[0]; $i++)
                 {
                     if ($i != $data[1]) {

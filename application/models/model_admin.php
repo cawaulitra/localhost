@@ -86,11 +86,37 @@ class Model_Admin extends Model
 		return $data;
     }
 
-    function get_user($id) {
+    function view_user($id) {
+        $data = [];
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
 
+        $string = "SELECT  `users`.`id`, `users`.`login`, `users`.`name` FROM `users` WHERE `users`.`id` = $id";
+        //echo $string;
+        $result = $mysqli->query($string);
+
+        if ($result == true) {
+            while ($fetch = $result->fetch_assoc()) {
+                $data = [
+                    'id' => $fetch['id'],
+                    'login' => $fetch['login'],
+                    'name' => $fetch['name']
+                ];
+            }
+            return $data;
+        }
     }
 
-    function get_ticket($id) {
+    function view_ticket($id) {
+        $data = [];
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
 
     }
 
@@ -109,5 +135,21 @@ class Model_Admin extends Model
         else 
             $data['success'] = false;
         return $data;
+    }
+
+    function full_user($id) {
+
+    }
+
+    function full_ticket($id) {
+
+    }
+
+    function edit_user($id) {
+
+    }
+
+    function edit_ticket($id) {
+        
     }
 }
