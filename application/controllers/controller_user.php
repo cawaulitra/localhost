@@ -60,6 +60,14 @@ class Controller_user extends Controller
 			header("Location: /");
 		}
     }
+
+	function action_profileEdit($post) {
+		if (isset($_SESSION['login'])) {
+			//header("Location: /user/profile");
+			$data = $this->model->edit_profile($_POST);
+			$this->view->generate('user_profile_view.php', 'template_view.php', $data);
+		}
+	}
  	
 	function action_leave() {
 		unset($_SESSION['login']);

@@ -107,7 +107,7 @@ input{
 	margin-left: 5%;
 }
 </style>
-<form action="/user/registerAction" method="post" class="login_page">
+<form action="/user/profileEdit" method="post" class="login_page">
 	<div class="login_page">
 		<div class="plane">
 			Профиль
@@ -121,7 +121,7 @@ input{
 				<p class="name">ФИО:</p>
 				<input type="text" placeholder="<?php echo $_SESSION['name']?>" name="fio">
 			</div>
-			<a class="password">Изменить профиль</a>
+			<button type="submit">Изменить профиль</button>
 		</div>
 	</div>
 </form>

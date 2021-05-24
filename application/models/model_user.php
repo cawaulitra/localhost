@@ -118,6 +118,41 @@ class Model_User extends Model
 		}
 		return $data;
 	}
+
+	function edit_profile($post) {
+		$data = [];
+
+		$mysqli = $this->sql_connect();
+		if ($mysqli->connect_error){
+			die('Error');
+		}
+		$mysqli->set_charset('utf8');
+
+		if ($post['login'] == $_SESSION['login'] && $post['name'] == $_SESSION['name']) { //ничего не меняем
+			$_SESSION['success'] = false;
+		}
+
+		if ($post['login'] != $_SESSION['login'] && $post['name'] == $_SESSION['name']) { //меняем логин
+			$string = "UPDATE `users` SET `name` = '". $post['name'] ."' WHERE `id` = '". $_SESSION['id'] ."'";
+			$_SESSION['success'] = true;
+		}
+
+		if ($post['login'] == $_SESSION['login'] && $post['name'] != $_SESSION['name']) { //меняем имя
+			$string = "UPDATE `users` SET `login` = '". $post['login'] ."' WHERE `id` = '". $_SESSION['id'] ."'";
+			$_SESSION['success'] = true;
+		}
+
+		if ($post['login'] != $_SESSION['login'] && $post['name'] != $_SESSION['name']) { //меняем имя и логин
+			$string = "UPDATE `users` SET 	`name` = '". $post['name'] ."', 
+											`login` = '". $post['login'] ."'
+											 WHERE `id` = '". $_SESSION['id'] ."'";
+			$_SESSION['success'] = true;
+		}
+
+		echo $string;
+
+		var_dump($post);
+	}
 }
 
 ?>
