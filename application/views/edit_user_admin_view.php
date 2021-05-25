@@ -98,7 +98,7 @@
         flex-wrap: wrap;
         align-content: space-between;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-start;
     }
     input{
         margin-left: 5%;
@@ -113,7 +113,7 @@
         color: #253254;
     }
 
-    .types, .user {
+    .types, .user, .new_type_ul {
         list-style-type: none;
     }
 
@@ -151,15 +151,24 @@
         font-weight: bold;
         font-size: 17px;
         line-height: 20px;
+        margin-left: 8px;
+        margin-top: 10px;
     }
 
     .submit {
-        margin-top: 50px;
+       margin-top: 20px;
+       margin-left: 15px;
+    }
+
+    .new_type_ul {
+        position: relative;
+        left: 100px;
+        bottom: 130px;
     }
 </style>
 <div class="login_page">
-    <form>
         <div class="plane">
+        <form>
                 Редактирование профиля
         </div>
         <div class="user_profile_content">
@@ -177,12 +186,11 @@
                             <option>Администратор</option>
                         </select>
                     </li>
+                    <li><button class="submit">Изменить профиль</submit></li>
                 </ul>
             </div>
             <div class="overflow">
                 <p>Разрешенные темы:</p>
-                <input placeholder="новая тема"></input>
-                <button class="new_type">Создать</button>
                 <ul class="types">
                     <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
                     <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
@@ -206,7 +214,12 @@
                     <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
                 </ul>
             </div>
-            <button class="submit">Изменить профиль</submit>
+            </form>
         </div>
-    </form>
+        <form>
+            <ul class="new_type_ul">
+                <li><input placeholder="новая тема"></input></li>
+                <li><button class="new_type">Создать</button></li>
+            </ul>
+        </form>
 </div>
