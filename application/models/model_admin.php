@@ -111,13 +111,12 @@ class Model_Admin extends Model
     }
 
     function view_ticket($id) {
-        $data = [];
+        /*$data = [];
         $mysqli = $this->sql_connect();
         if ($mysqli->connect_error){
             die('Error');
         }
-        $mysqli->set_charset('utf8');
-
+        $mysqli->set_charset('utf8');*/
     }
 
     function delete_ticket($id) {
@@ -138,20 +137,122 @@ class Model_Admin extends Model
     }
 
     function full_user($id) {
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
 
+        $string = "SELECT * FROM `users` WHERE `id` = '$id'";
+        $result = $mysqli->query($string);
+        while ($fetch = $result->fetch_assoc()) {
+            $data['user'] = [
+                'id' => $fetch['id'],
+                'login' => $fetch['login'],
+                'name' => $fetch['name'],
+                'id_role' => $fetch['id_role']
+            ];
+        }
+
+        $string = "SELECT * FROM `ticket_type`";
+        $result = $mysqli->query($string);
+        while ($fetch = $result->fetch_assoc()) {
+            $data['type'][] = [
+                'id' => $fetch['id'],
+                'name' => $fetch['name']
+            ];
+        }
+
+        $string = "SELECT * FROM `allowed_types` WHERE `id_user` = '$id'";
+        //echo $string;
+        $result = $mysqli->query($string);
+        while ($fetch = $result->fetch_assoc()) {
+            $data['allowed_type'][] = [
+                'id_type' => $fetch['id_type']
+            ];
+        }
+
+        return $data;
     }
 
     function full_ticket($id) {
 
     }
 
-    function edit_user($id) {
+    function edit_user($post) {
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
 
+        //var_dump($post);
+        if (!empty($post['login'])) {
+
+            if ($post['id_role'] == 'Администратор') $post['id_role'] = 1;
+            if ($post['id_role'] == 'Сотрудник') $post['id_role'] = 2;
+            if ($post['id_role'] == 'Пользователь') $post['id_role'] = 3;
+
+            if (!empty($post['password']) && !empty($post['password_confirm'])) {
+                $string = "SET `login` = '". $post['login'] ."', 
+                `name` = '". $post['name'] ."', 
+                `password` = '". md5($post['password']) ."', 
+                `id_role` = '". $post['id_role'] ."' 
+                WHERE `id` = '". $post['id'] ."'";
+            }
+
+            else {
+                $string = "UPDATE `users` SET `login` = '". $post['login'] ."', `name` = '". $post['name'] ."', `id_role` = '". $post['id_role'] ."' WHERE `id` = '". $post['id'] ."'";
+            }
+            //echo $string;
+            $result = $mysqli->query($string);
+
+            // if ($result == true) {
+            //
+            // }
+        }
+
+        //echo ($post['id_role']);
+        if ($post['id_role'] == 2) {
+            $string = "DELETE FROM `allowed_types` WHERE `id_user` = '". $post['id'] ."'";
+            //echo $string;
+            $result = $mysqli->query($string);
+
+            //var_dump($post['type']);
+            if (isset($post['type'])) {
+                foreach ($post['type'] as $key => $value) {
+                    $string = "INSERT INTO `allowed_types` VALUES (NULL, '". $post['id'] ."', '". $key ."')";
+                    //echo $string;
+                    $result = $mysqli->query($string);
+                }
+            }
+        }
     }
 
-    function edit_ticket($id) {
+    function new_type($post) {
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        if (!empty($post['type_name'])) {
+            $string = "INSERT INTO `ticket_type` VALUES (NULL, '". $post['type_name'] ."')";
+            echo $string;
+            $result = $mysqli->query($string);
+
+            if ($result == true) {
+                $_SESSION['success']['new_type'] == true;
+            }
+
+            else $_SESSION['success']['new_type'] == false;
+        }
+    }
+
+    function edit_ticket($post) {
         
     }
+
     function view_statistic($id){
         $data = [];
 

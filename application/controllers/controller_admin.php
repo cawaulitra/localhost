@@ -61,13 +61,13 @@ class Controller_admin extends Controller
   function action_delete_ticket($id) {
     if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
       if($_SESSION['id_role'] == 1) { //админ
-        header("Location: /admin/tickets/1");
+        header("Location: ". $_SERVER['HTTP_REFERER'] ."");
         $data = $this->model->delete_ticket($id);
         $this->view->generate('tickets_admin_view.php', 'template_view.php', $data);
       }
   }
   else {
-    header("Location: ". $_SERVER['HTTP_REFERER'] ."");
+    header("Location: /");
   }
 }
 
@@ -84,11 +84,13 @@ class Controller_admin extends Controller
       }
     }
 
-    function action_edit_userAction($id) {
+    function action_edit_userAction($post) {
       if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
         if($_SESSION['id_role'] == 1) { //админ
-      $data = $this->model->edit_user($id);
-      $this->view->generate('edit_user_admin_view.php', 'template_view.php', $data);
+      header("Location: ". $_SERVER['HTTP_REFERER'] ."");
+      $data = $this->model->edit_user($_POST);
+      //$this->view->generate('edit_user_admin_view.php', 'template_view.php', $data);
+      unset($_POST);
         }
     }
     else 
@@ -96,6 +98,21 @@ class Controller_admin extends Controller
       header("Location: /");
     }
   }
+
+  function action_new_typeAction($post) {
+    if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
+      if($_SESSION['id_role'] == 1) { //админ
+    header("Location: ". $_SERVER['HTTP_REFERER'] ."");
+    $data = $this->model->new_type($_POST);
+    unset($_POST);
+    //$this->view->generate('edit_user_admin_view.php', 'template_view.php', $data);
+      }
+  }
+  else 
+  {
+    header("Location: /");
+  }
+}
 
     function action_edit_ticket($id) {
       if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {

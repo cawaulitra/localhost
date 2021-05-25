@@ -162,64 +162,106 @@
 
     .new_type_ul {
         position: relative;
-        left: 100px;
+        left: 115px;
         bottom: 130px;
     }
 </style>
 <div class="login_page">
         <div class="plane">
-        <form>
+        <form action="/admin/edit_userAction" method="post">
                 Редактирование профиля
         </div>
+        <?php 
+            //var_dump($data['allowed_type']);
+            /*if (isset($_SESSION['success'])) {
+                if (isset($_SESSION['success']['new_type'])) {
+                    if ($_SESSION['success']['new_type'] == true) {
+                        echo "Новый тип вопроса создан!";
+                    }
+                    else echo "Что-то пошло не так.";
+                }
+                if (isset($_SESSION['success']['edit_user'])) {
+                    if ($_SESSION['success']['edit_user'] == true) {
+                        echo "Пользователь изменён!";
+                    }
+                    else echo "Что-то пошло не так.";
+                }
+                unset($_SESSION['success']);
+            }*/
+        ?>
         <div class="user_profile_content">
             <div class="user">
-                <p>Параметры пользователя:</p>
-                <ul class="user">
-                    <li><input placeholder="Новый логин"></input></li>
-                    <li><input placeholder="Новое фио"></input></li>
-                    <li><input placeholder="Новый пароль"></input></li>
-                    <li><input placeholder="Повторите пароль"></input></li>
-                    <li>
-                        <select class="select">
-                            <option>Пользователь</option>
-                            <option>Сотрудник</option>
-                            <option>Администратор</option>
-                        </select>
-                    </li>
-                    <li><button class="submit">Изменить профиль</submit></li>
-                </ul>
-            </div>
-            <div class="overflow">
-                <p>Разрешенные темы:</p>
-                <ul class="types">
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                    <li><label><input type="checkbox" class="checkbox"></input>Биология</label></li>
-                </ul>
-            </div>
-            </form>
-        </div>
-        <form>
-            <ul class="new_type_ul">
-                <li><input placeholder="новая тема"></input></li>
-                <li><button class="new_type">Создать</button></li>
-            </ul>
-        </form>
+                    <?php
+                        if(isset($data['user'])) {
+                            echo "
+                            <p>Параметры пользователя:</p>
+                            <ul class='user'>  
+                                <li><input name='id' placeholder='ID' value=". $data['user']['id'] ." hidden></input></li>
+                                <li><input name='login' placeholder='Логин' value=". $data['user']['login'] ."></input></li>
+                                <li><input name='name' placeholder='Имя' value=". $data['user']['name'] ."></input></li>
+                                <li><input name='password' placeholder='Новый пароль'></input></li>
+                                <li><input name='password_confrim' placeholder='Повторите пароль'></input></li>
+                                <li>
+                                    <select name='id_role' class='select'>";
+                                    if ($data['user']['id_role'] == 3) {
+                                        echo "<option selected='selected'>Пользователь</option>";
+                                    }
+                                    else echo "<option>Пользователь</option>";
+
+                                    if ($data['user']['id_role'] == 2) {
+                                        echo "<option selected='selected'>Сотрудник</option>";
+                                    }
+                                    else echo "<option>Сотрудник</option>";
+
+                                    if ($data['user']['id_role'] == 1) {
+                                        echo "<option selected='selected'>Администратор</option>";
+                                    }
+                                    else echo "<option>Администратор</option>";
+                                    echo "
+                                    </select>
+                                </li>
+                                <li><button class='submit' type='submit'>Изменить профиль</submit></li>
+                                </ul>
+                            </div>
+                        ";
+                        }
+                    ?>
+            <?php
+                if (isset($data['user']['id_role'])) {
+                    if ($data['user']['id_role'] == 2) {
+                        echo "
+                        <div class='overflow'>
+                            <p>Разрешенные темы:</p>
+                            <ul class='types'>";
+                                foreach ($data['type'] as $type) {
+                                    if(isset($data['allowed_type'])) {
+                                        foreach ($data['allowed_type'] as $allowed_type) {
+                                            if (!in_array($type['id'], $allowed_type)) {
+                                                $find = 0;
+                                            }
+                                            else {
+                                                $find = 1;
+                                                break;
+                                            }	
+                                        }
+
+                                        if ($find == 0) echo "<li><label><input name='type[". $type['id'] ."]' type='checkbox' class='checkbox'></input>". $type['name'] ."</label></li>";
+                                        if ($find == 1) echo "<li><label><input name='type[". $type['id'] ."]' type='checkbox' class='checkbox' checked='checked'></input>". $type['name'] ."</label></li>";
+                                    }
+                                    else echo "<li><label><input name='type[". $type['id'] ."]' type='checkbox' class='checkbox'></input>". $type['name'] ."</label></li>";
+                                    }
+                                }
+                                echo "
+                            </ul>
+                        </div>
+                        </form>
+                    </div>
+                    <form action='/admin/new_typeAction' method='post'>
+                        <ul class='new_type_ul'>
+                            <li><input name='type_name' placeholder='новая тема'></input></li>
+                            <li><button class='new_type' type='submit'>Создать</button></li>
+                        </ul>
+                    </form>";
+                    }
+        ?>
 </div>
