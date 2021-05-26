@@ -111,12 +111,38 @@ class Model_Admin extends Model
     }
 
     function view_ticket($id) {
-        /*$data = [];
+        $data = [];
         $mysqli = $this->sql_connect();
         if ($mysqli->connect_error){
             die('Error');
         }
-        $mysqli->set_charset('utf8');*/
+        $mysqli->set_charset('utf8');
+
+        $string = "SELECT `tickets`.*, 
+        `user1`.`login` AS `login1`, 
+        `user2`.`login` AS `login2`, 
+        `ticket_type`.`name` 
+        FROM `tickets`
+            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`) 
+            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
+            JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`) 
+            WHERE `tickets`.`id` = $id";
+
+        $check = $mysqli->query($string);
+                
+
+        if ($check = $check->fetch_assoc()) {
+            $data['ticket'] = [
+                'id' => $check['id'], 
+                'title' => $check['title'], 
+                'name' => $check['name'],
+                'author' => $check['login1'],
+                'employee' => $check['login2'],
+                'text' => $check['text'],
+                'id_status' => $check['id_status']
+            ];
+        }
+        return $data;
     }
 
     function delete_ticket($id) {
@@ -176,7 +202,37 @@ class Model_Admin extends Model
     }
 
     function full_ticket($id) {
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
 
+        $string = "SELECT `tickets`.*, `ticket_type`.`name` FROM `tickets` JOIN `ticket_type` ON (`tickets`.`id_type` = `ticket_type`.`id`) WHERE `tickets`.`id` = '$id'";
+        echo $string;
+        $result = $mysqli->query($string);
+        while ($fetch = $result->fetch_assoc()) {
+            $data['ticket'] = [
+                'id' => $fetch['id'],
+                'id_author' => $fetch['id_author'],
+                'id_employee' => $fetch['id_employee'],
+                'title' => $fetch['id_type'],
+                'name' => $fetch['name'],
+                'text' => $fetch['text'],
+                'id_status' => $fetch['id_status']
+            ];
+        }
+
+        $string = "SELECT * FROM `allowed_types` JOIN `users` ON (`allowed_types`.`id_user` = `users`.`login`) WHERE `id_user` = '". $data['ticket']['id_employee'] ."'";
+        echo $string;
+        $result = $mysqli->query($string);
+        while ($fetch = $result->fetch_assoc()) {
+            $data['allowed_type'][] = [
+                'id_type' => $fetch['id_type']
+            ];
+        }
+
+        return $data;
     }
 
     function edit_user($post) {

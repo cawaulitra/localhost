@@ -288,18 +288,29 @@ class Model_Ticket extends Model
         }
         $mysqli->set_charset('utf8');
         if ($_SESSION['id_role'] == 3) {
-        $string = "SELECT `tickets`.*, `user1`.`login` AS `login1`, `user2`.`login` AS `login2` FROM `tickets`
-            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`)
-            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`)
+        $string = "SELECT `tickets`.*, 
+        `user1`.`login` AS `login1`, 
+        `user2`.`login` AS `login2`, 
+        `ticket_type`.`name` 
+        FROM `tickets`
+            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`) 
+            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
+            JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`) 
             WHERE `id_author` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
         }
-
+        //echo $string;
         if ($_SESSION['id_role'] == 2) {
-            $string = "SELECT `tickets`.*, `user1`.`login` AS `login1`, `user2`.`login` AS `login2` FROM `tickets`
+            $string = "SELECT `tickets`.*, 
+            `user1`.`login` AS `login1`, 
+            `user2`.`login` AS `login2`, 
+            `ticket_type`.`name` 
+            FROM `tickets`
                 LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`)
-                LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`)
+                LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
+                JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`)
                 WHERE `id_employee` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
             }
+        //echo $string;
         $check = $mysqli->query($string);
         
 
@@ -307,6 +318,7 @@ class Model_Ticket extends Model
             $data['ticket'] = [
                 'id' => $check['id'], 
                 'title' => $check['title'], 
+                'name' => $check['name'],
                 'author' => $check['login1'],
                 'employee' => $check['login2'],
                 'text' => $check['text'],

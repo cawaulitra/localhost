@@ -58,7 +58,7 @@ class Model_User extends Model
 		if (isset($post['login']) && isset($post['password'])) {
 			//var_dump($post);
 			$string = "INSERT INTO `users` VALUES (NULL, '$login', 'fio', '$password', '3')";
-			echo $string;
+			//echo $string;
 			$mysqli->query($string);
 			if ($mysqli->error == true) {
 				$error = "Ошибочка! ".$mysqli->error;

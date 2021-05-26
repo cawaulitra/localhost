@@ -125,7 +125,9 @@ span h1{
                     echo "У вас нет прав для просмотра этого тикета.";
                 }
                 else {
+                    //var_dump($data);
                     echo "<span><h1>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
+                    echo "<span><p class='type'>Тема: ". $data['ticket']['name'] ."</p></span>";
                     echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
                     echo "<span class='images-info'></span>";
                     echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['author'] ."</p></span>";
@@ -135,6 +137,11 @@ span h1{
         ?>
     </div>
     <div class="chat-all">
+        <p><?php 
+            if ($data['ticket']['id_status'] == 1) echo "Ожидание";
+            if ($data['ticket']['id_status'] == 2) echo "В процессе";
+            if ($data['ticket']['id_status'] == 3) echo "Выполнен";
+        ?></p>
         <form onsubmit="return false;" id='chat_form'>
             <div class="message_container" id="message_container">
 

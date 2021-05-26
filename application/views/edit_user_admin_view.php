@@ -162,7 +162,7 @@
 
     .new_type_ul {
         position: relative;
-        left: 115px;
+        left: 130px;
         bottom: 130px;
     }
 </style>
@@ -250,8 +250,7 @@
                                     }
                                     else echo "<li><label><input name='type[". $type['id'] ."]' type='checkbox' class='checkbox'></input>". $type['name'] ."</label></li>";
                                     }
-                                }
-                                echo "
+                                    echo "
                             </ul>
                         </div>
                         </form>
@@ -261,7 +260,8 @@
                             <li><input name='type_name' placeholder='новая тема'></input></li>
                             <li><button class='new_type' type='submit'>Создать</button></li>
                         </ul>
-                    </form>";
+                    </form>";   
+                                }
                     }
         ?>
 </div>
