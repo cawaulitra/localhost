@@ -300,6 +300,8 @@ class Model_Ticket extends Model
         }
         //echo $string;
         if ($_SESSION['id_role'] == 2) {
+            $today = date("y-m-d");
+            $string = "UPDATE `tickets` SET `start-date` = '$today'"
             $string = "SELECT `tickets`.*, 
             `user1`.`login` AS `login1`, 
             `user2`.`login` AS `login2`, 
@@ -309,7 +311,10 @@ class Model_Ticket extends Model
                 LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
                 JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`)
                 WHERE `id_employee` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
+
             }
+
+        
         //echo $string;
         $check = $mysqli->query($string);
         
@@ -327,5 +332,15 @@ class Model_Ticket extends Model
         }
         else $data['success'] = false;
         return $data;
+    }
+    function close_ticket($id){
+        $data = [];
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        $query = "SELECT * FROM `tickets`"
     }
 }

@@ -140,7 +140,7 @@ button a{
                 }
             }
         ?>
-        <button type="submit"><a href="#">Закрыть тикет</a></button>
+        <button type="submit"><a href="model/close_ticket/<?php echo $data['ticket']['id'];?>">Закрыть тикет</a></button>
     </div>
     <div class="chat-all">
         <p><?php 
