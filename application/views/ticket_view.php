@@ -115,6 +115,11 @@ span h1{
     word-wrap: break-word;
     width: 350px;
 }
+button a{
+    text-decoration: none;
+    color: rgba(50, 50, 50, 0.35);
+    height: 60px;
+}
 </style>
 <div class="main-content">
     <div class="info">
@@ -135,6 +140,7 @@ span h1{
                 }
             }
         ?>
+        <button type="submit"><a href="#">Закрыть тикет</a></button>
     </div>
     <div class="chat-all">
         <p><?php 
