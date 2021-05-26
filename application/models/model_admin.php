@@ -216,6 +216,7 @@ class Model_Admin extends Model
                 'id' => $fetch['id'],
                 'id_author' => $fetch['id_author'],
                 'id_employee' => $fetch['id_employee'],
+                'id_type' => $fetch['id_type'],
                 'title' => $fetch['id_type'],
                 'name' => $fetch['name'],
                 'text' => $fetch['text'],
@@ -223,12 +224,13 @@ class Model_Admin extends Model
             ];
         }
 
-        $string = "SELECT * FROM `allowed_types` JOIN `users` ON (`allowed_types`.`id_user` = `users`.`login`) WHERE `id_user` = '". $data['ticket']['id_employee'] ."'";
+        $string = "SELECT `users`.* FROM `users` JOIN `allowed_types` ON (`users`.`id` = `allowed_types`.`id_user`) WHERE `id_type` = '". $data['ticket']['id_type'] ."'";
         echo $string;
         $result = $mysqli->query($string);
         while ($fetch = $result->fetch_assoc()) {
-            $data['allowed_type'][] = [
-                'id_type' => $fetch['id_type']
+            $data['employees'][] = [
+                'id' => $fetch['id'],
+                'login' => $fetch['login']
             ];
         }
 

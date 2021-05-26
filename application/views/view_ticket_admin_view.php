@@ -137,6 +137,11 @@ span h1{
         <a class='edit' href="/admin/edit_ticket/<?php echo $data['ticket']['id']; ?>">Редактировать</a>
     </div>
     <div class="chat-all">
+        <p><?php 
+            if ($data['ticket']['id_status'] == 1) echo "Ожидание";
+            if ($data['ticket']['id_status'] == 2) echo "В процессе";
+            if ($data['ticket']['id_status'] == 3) echo "Выполнен";
+        ?></p>
         <form onsubmit="return false;" id='chat_form'>
             <div class="message_container" id="message_container">
 

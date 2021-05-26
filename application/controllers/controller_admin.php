@@ -118,7 +118,7 @@ class Controller_admin extends Controller
       if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
         if($_SESSION['id_role'] == 1) { //админ
           $data = $this->model->full_ticket($id);
-          $this->view->generate('edit_ticket_admin_view.php', 'template_view.php');
+          $this->view->generate('edit_ticket_admin_view.php', 'template_view.php', $data);
         }
     }
     else 

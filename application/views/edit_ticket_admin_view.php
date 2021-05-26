@@ -123,15 +123,17 @@ span h1{
 <div class="main-content">
     <div class="info">
         <?php
-        //var_dump ($data);
+        var_dump ($data);
             if (isset($data)) {
-                var_dump($data);
+                //var_dump($data);
                 echo "<span><h1>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
                 echo "<span><p class='type'>Тема: ". $data['ticket']['name'] ."</p></span>";
                 echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
                 echo "<span class='images-info'></span>";
                 echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['author'] ."</p></span>";
-                echo "<span class='worker-info'><h2>Сотрудник: </h2><p>". $data['ticket']['employee'] ."</p></span>";
+                echo "<span class='worker-info'><h2>Сотрудник: </h2><select>"
+                    if (isset($data['']))
+                echo "</select></span>";
             }
         ?>
     </div>
