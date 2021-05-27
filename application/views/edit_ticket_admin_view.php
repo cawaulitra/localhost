@@ -119,28 +119,38 @@ span h1{
 .edit {
     color: black;
 }
+
+.id {
+    width: 30px;
+}
 </style>
 <div class="main-content">
     <div class="info">
         <?php
             if (isset($data)) {
+                if($data['ticket']['id_status'] != 3)
+                {
                     //var_dump($data);
-                    echo "<span><h1>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
+                    echo "<form action='/admin/edit_ticketAction' method='post'>";
+                    echo "<span><h1><input name='id_ticket' class='id' hidden value = '". $data['ticket']['id'] ."'></input>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
                     echo "<span><p class='type'>Тема: ". $data['ticket']['name'] ."</p></span>";
                     echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
                     echo "<span class='images-info'></span>";
                     echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['login_author'] ."</p></span>";
-                    echo "<span class='worker-info'><h2>Сотрудник: </h2><select>";
+                    echo "<span class='worker-info'><h2>Сотрудник: </h2><select name='employee'>";
                         if (isset($data['employees'])) {
                             foreach ($data['employees'] as $employee) {
-                            if ($data['employees']['id'] == $data['ticket']['id_employee']) {
-                                echo "<option selected='selected'>". $employee['login'] ."</option>";
+                            if ($employee['id'] == $data['ticket']['id_employee']) {
+                                echo "<option selected='selected' value='". $employee['id'] ."'>" . $employee['login'] ."</option>";
                             }
-                            else echo "<option>". $employee['login'] ."</option>";      
+                            else echo "<option value='". $employee['id'] ."'>". $employee['login'] ."</option>";      
                         }
-                        echo "</select></span>";
                     }
+                    echo "</select></span><button class='submit' type='submit'>Изменить профиль</button>";
+                    echo "</form>";
                 }
+                else echo "Законченные тикеты нельзя изменять.";
+            }
         ?>
     </div>
 </div>

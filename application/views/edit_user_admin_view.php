@@ -220,7 +220,7 @@
                                     echo "
                                     </select>
                                 </li>
-                                <li><button class='submit' type='submit'>Изменить профиль</submit></li>
+                                <li><button class='submit' type='submit'>Изменить профиль</button></li>
                                 </ul>
                             </div>
                         ";

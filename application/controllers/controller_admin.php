@@ -127,11 +127,12 @@ class Controller_admin extends Controller
     }
     }
 
-    function action_edit_ticketAction($id) {
+    function action_edit_ticketAction($post) {
       if (isset($_SESSION['login']) && isset($_SESSION['id_role'])) {
         if($_SESSION['id_role'] == 1) { //админ
-      $data = $this->model->edit_ticket($id);
-      $this->view->generate('edit_user_admin_view.php', 'template_view.php', $data);
+          header("Location: ". $_SERVER['HTTP_REFERER'] ."");
+      $data = $this->model->edit_ticket($_POST);
+      //$this->view->generate('edit_ticket_admin_view.php', 'template_view.php', $data);
         }
     }
     else 

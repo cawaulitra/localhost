@@ -217,7 +217,7 @@ class Model_Admin extends Model
             LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
             JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`) 
         WHERE `tickets`.`id` = '$id'";
-        echo $string;
+        //echo $string;
         $result = $mysqli->query($string);
         while ($fetch = $result->fetch_assoc()) {
             $data['ticket'] = [
@@ -235,7 +235,7 @@ class Model_Admin extends Model
         }
 
         $string = "SELECT `users`.* FROM `users` JOIN `allowed_types` ON (`users`.`id` = `allowed_types`.`id_user`) WHERE `id_type` = '". $data['ticket']['id_type'] ."'";
-        echo $string;
+        //echo $string;
         $result = $mysqli->query($string);
         while ($fetch = $result->fetch_assoc()) {
             $data['employees'][] = [
@@ -306,7 +306,7 @@ class Model_Admin extends Model
 
         if (!empty($post['type_name'])) {
             $string = "INSERT INTO `ticket_type` VALUES (NULL, '". $post['type_name'] ."')";
-            echo $string;
+            //echo $string;
             $result = $mysqli->query($string);
 
             if ($result == true) {
@@ -318,7 +318,16 @@ class Model_Admin extends Model
     }
 
     function edit_ticket($post) {
-        
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        //var_dump($post);
+        $string = "UPDATE `tickets` SET `id_employee` = '". $post['employee'] ."', `start_date` = NULL WHERE `id` = '". $post['id_ticket'] ."'";
+        //echo $string;
+        $result = $mysqli->query($string);
     }
 
     function view_statistic($id){
