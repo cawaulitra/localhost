@@ -108,6 +108,44 @@ class Model_Ticket extends Model
             else $_SESSION['success'] = false;
             }
         }
+
+        function makeRandomString($max=16) { //генерируем названия файлов
+			$i = 0; //Reset the counter.
+			$possible_keys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			$keys_length = strlen($possible_keys);
+			$str = ""; //Let's declare the string, to add later.
+			while($i<$max) {
+				$rand = mt_rand(1,$keys_length-1);
+				$str.= $possible_keys[$rand];
+				$i++;
+			}
+			return $str;
+		}
+
+        var_dump($_FILES);
+
+        if (isset($_FILES) && !empty($_FILES)) {
+            foreach ($_FILES ["file"]["error"] as $key => $error) {
+                $filesTmp = $_FILES["file"]["tmp_name"][$key];
+                $filesName = $_FILES["file"]["name"][$key];
+                $filesExt = strstr($filesName, ".");
+                $filesName = makeRandomString() . $filesExt;
+
+                if (move_uploaded_file($filesTmp, "../root/files/tickets/" . $filesName)) {
+                    $string_file = "INSERT INTO `files_tickets` VALUES (NULL, '". $mysqli->insert_id ."', '$filesName')";
+                    echo $string_file;
+
+                    if ($mysqli->query($string_file)) {
+                        $_SESSION['success_file'] = TRUE;
+                    }
+                    else $_SESSION['success_file'] = FALSE;
+                    //echo $mysqli->insert_id;
+                }
+                else $_SESSION['success_file'] = FALSE;
+            }
+            unset ($_SESSION['success_file']);
+        }
+
         return $data;
      }
 

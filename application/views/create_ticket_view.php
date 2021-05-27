@@ -99,13 +99,13 @@ button{
     ?>
     <div class="create_form">
         <div class="main-opis">
-            <form class="main-opis" method="post" action="/ticket/createAction">
+            <form class="main-opis" method="post" action="/ticket/createAction" enctype='multipart/form-data'>
             <p>Название: </p>
             <input id="title" name="title">
             <p>Описание:</p>
             <textarea cols="25" id="text" name="text"></textarea>
             <p:>Дополнительно</p>
-            <input type="file">
+            <input type='file' name='file[]' id='file' multiple>
             <br>
             <button type="submit">Создать</button>
         </div>
