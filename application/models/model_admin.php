@@ -133,11 +133,14 @@ class Model_Admin extends Model
 
         if ($check = $check->fetch_assoc()) {
             $data['ticket'] = [
-                'id' => $check['id'], 
-                'title' => $check['title'], 
+                'id' => $check['id'],
+                'id_author' => $check['id_author'],
+                'id_employee' => $check['id_employee'],
+                'login_author' => $check['login1'],
+                'login_employee' => $check ['login2'],
+                'id_type' => $check['id_type'],
+                'title' => $check['id_type'],
                 'name' => $check['name'],
-                'author' => $check['login1'],
-                'employee' => $check['login2'],
                 'text' => $check['text'],
                 'id_status' => $check['id_status']
             ];

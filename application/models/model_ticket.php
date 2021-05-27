@@ -111,7 +111,7 @@ class Model_Ticket extends Model
         return $data;
      }
 
-    function timer($data_view) {
+    function timer($data_view, $id_ticket) {
         $data = [
             "messages" => [],
             "id_what" => 0,
@@ -137,7 +137,7 @@ class Model_Ticket extends Model
         }
         if($data_view !== $server_id){
             $data['is_new'] = true;
-            $string1 = "SELECT * FROM `messages` LIMIT $limit";
+            $string1 = "SELECT * FROM `messages` WHERE `id_ticket` = ". $id_ticket ." LIMIT $limit";
             $res1 = $mysqli->query($string1);
             while ($row1 = $res1->fetch_assoc()) {
                 $data['messages'][] = $row1['text'];
@@ -167,12 +167,12 @@ class Model_Ticket extends Model
         }
         $mysqli->set_charset('utf8');
 
-        if(!empty($post)){
+        if(!empty($post['text'])){
             $text = $post['text'];
-            $string3 = "INSERT INTO `messages` VALUES (NULL, 1, ".$_SESSION['id'].", '$text')";
+            $string3 = "INSERT INTO `messages` VALUES (NULL, ". $post['id_ticket'] .", ".$_SESSION['id'].", '$text')";
             $mysqli->query($string3);
         }
-        $string1 = "SELECT * FROM `messages` LIMIT $limit";
+        $string1 = "SELECT * FROM `messages` WHERE `id_ticket` = ". $post['id_ticket'] ." LIMIT $limit";
         $res1 = $mysqli->query($string1);
         while ($row1 = $res1->fetch_assoc()) {
             $data['messages'][] = $row1['text'];
@@ -323,6 +323,8 @@ class Model_Ticket extends Model
                 'id' => $check['id'], 
                 'title' => $check['title'], 
                 'name' => $check['name'],
+                'id_author' => $check['id_author'],
+                'id_employee' => $check['id_employee'],
                 'author' => $check['login1'],
                 'employee' => $check['login2'],
                 'text' => $check['text'],

@@ -46,7 +46,7 @@ class Controller_ticket extends Controller
 
 	function action_timer() {
 		$post = $_POST;
-		$data = $this->model->timer($post['post_id']);
+		$data = $this->model->timer($post['post_id'], $post['id_ticket']);
 		echo $data;
 	}
 
@@ -57,7 +57,7 @@ class Controller_ticket extends Controller
 			$data = $this->model->chating($post);
 		}
 		else{
-			$data = $this->model->chating(null);
+			$data = $this->model->chating($post);
 		}
 		echo($data);
 	}

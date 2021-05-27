@@ -98,6 +98,7 @@ span h1{
     border-radius: 5px;
     text-align: left;
     align-self: flex-start;
+    word-wrap: break-word;
 }
 .message_is_my{
     max-width: 60%;
@@ -110,6 +111,7 @@ span h1{
     border-radius: 5px;
     text-align: right;
     align-self: flex-end;
+    word-wrap: break-word;
 }
 .text{
     word-wrap: break-word;
@@ -126,12 +128,14 @@ span h1{
         //var_dump ($data);
             if (isset($data)) {
                 //var_dump($data);
-                echo "<span><h1>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
+                echo "<span><h1 id='id_ticket_is'>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
                 echo "<span><p class='type'>Тема: ". $data['ticket']['name'] ."</p></span>";
                 echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
                 echo "<span class='images-info'></span>";
-                echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['author'] ."</p></span>";
-                echo "<span class='worker-info'><h2>Сотрудник: </h2><p>". $data['ticket']['employee'] ."</p></span>";
+                echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['login_author'] ."</p></span>";
+                echo "<span class='worker-info'><h2>Сотрудник: </h2><p>". $data['ticket']['login_employee'] ."</p></span>";
+                echo "<span id='id_author' style='display: none;'>".$data['ticket']['id_author']."</span>";
+                echo "<span id='id_employee' style='display: none;'>".$data['ticket']['id_employee']."</span>";
             }
         ?>
         <a class='edit' href="/admin/edit_ticket/<?php echo $data['ticket']['id']; ?>">Редактировать</a>
@@ -155,6 +159,11 @@ span h1{
     let post_input = document.getElementById('inp_post_id');
     let inp_text = document.getElementById('inp_text');
     let submit_btn = document.getElementById('submit_btn');
+    let id_author = document.getElementById('id_author');
+    let id_employee = document.getElementById('id_employee');
+    let id_ticket_is = document.getElementById('id_ticket_is');
+
+    id_ticket_is = id_ticket_is.innerText;
 
     let data_server_send = {
         "messages" : [],
@@ -165,17 +174,21 @@ span h1{
         const write = () => {
             message_container.innerHTML = "";
             for(let i = 0; i < data_server_send.messages.length; i++){
-                if(data_server_send.id_user[i] === data_server_send.my_id)
+                if(Number(data_server_send.id_user[i]) === Number(id_author.innerText))
                     message_container.innerHTML += `<div class="message_is_my">${data_server_send.messages[i]}</div>`;
                 else
                     message_container.innerHTML += `<div class="message_is_their">${data_server_send.messages[i]}</div>`;
             }
+            message_container.scrollTop = message_container.scrollHeight;
             post_input.innerText = data_server_send.id[data_server_send.length];
         }
-
+        let data_ticket = {
+            id_ticket: id_ticket_is,
+        }
         $.ajax({
             url: '/ticket/chatAct',
-            type: 'GET',
+            type: 'POST',
+            data: data_ticket,
             success: (res) => {
                 data_server_send = JSON.parse(res);
                 write();
@@ -188,7 +201,8 @@ span h1{
     let server_id = post_input.textContent || post_input.innerText;
 
     let data_view = {
-        post_id: post_id
+        post_id: post_id,
+        id_ticket: id_ticket_is,
     };
     let data_server = {
         "messages" : [],
@@ -207,7 +221,7 @@ span h1{
         const write2 = () => {
             message_container.innerHTML = "";
             for(let i = 0; i < data_server_send.messages.length; i++){
-                if(data_server_send.id_user[i] === data_server_send.my_id)
+                if(Number(data_server_send.id_user[i]) === Number(id_author.innerText))
                     message_container.innerHTML += `<div class="message_is_my">${data_server_send.messages[i]}</div>`;
                 else
                     message_container.innerHTML += `<div class="message_is_their">${data_server_send.messages[i]}</div>`;
@@ -240,7 +254,7 @@ span h1{
         if(data_server.is_new){
             message_container.innerHTML = "";
             for(let i = 0; i < data_server.messages.length; i++){
-                if(data_server_send.id_user[i] === data_server_send.my_id)
+                if(Number(data_server.id_user[i]) === Number(id_author.innerText))
                     message_container.innerHTML += `<div class="message_is_my">${data_server.messages[i]}</div>`;
                 else
                     message_container.innerHTML += `<div class="message_is_their">${data_server.messages[i]}</div>`;
