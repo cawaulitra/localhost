@@ -91,6 +91,7 @@ button{
         }
         else {
             echo "Что-то пошло не так. <br>";
+            if (isset($_SESSION['message']))
             foreach ($_SESSION['message'] as $msg) echo $msg; 
         }
     }

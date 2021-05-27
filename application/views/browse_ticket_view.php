@@ -87,10 +87,10 @@
                 for ($i = 1; $i <= $data[0]; $i++)
                 {
                     if ($i != $data[1]) {
-                        echo "<a href='/admin/users/$i' id='diff'>$i</a>"; //неактивная
+                        echo "<a href='/ticket/browse/$i' id='diff'>$i</a>"; //неактивная
                     }
                     else {
-                        echo "<a href='/admin/users/$i' id='curr'>$i</a>"; //активная
+                        echo "<a href='/ticket/browse/$i' id='curr'>$i</a>"; //активная
                     }
                 }
             ?>

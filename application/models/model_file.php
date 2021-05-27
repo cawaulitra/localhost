@@ -21,7 +21,7 @@ class Model_File extends Model
             }
         }
         $filename = $file['name'];
-
+        //var_dump($file);
         //echo (strstr($file[0]['link'], '.'));
         if (strstr($file[0]['name'], '.') == '.txt') {
             $type = 'text/plain';
@@ -43,8 +43,9 @@ class Model_File extends Model
             $type = 'application/vnd.rar';
         }
 
-        $path = "../root/files/tickets/" . $file[0]['name'];
-        if (@fopen($path, r) == true) {
+        $path = "../localhost/files/tickets/" . $file[0]['name'];
+        if (($f = @fopen($path, r)) == true) {
+            fclose($f);
             header("Content-Type: $type");
             header("Content-Disposition: attachment; filename=$filename");
             readfile($path);

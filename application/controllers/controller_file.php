@@ -8,8 +8,8 @@ class Controller_file extends Controller
     }
 
     function action_download($id) {
-       // $adress = $_SERVER['HTTP_REFERER'];
-       header("Location: ". $_SERVER['HTTP_REFERER'] ."");
+        //$adress = $_SERVER['HTTP_REFERER'];
+        //header("Location: ". $_SERVER['HTTP_REFERER'] ."");
         $id = $this->model->download($id);
     }
 }

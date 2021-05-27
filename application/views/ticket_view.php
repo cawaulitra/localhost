@@ -148,6 +148,7 @@ button a{
                     //var_dump($data);
                     echo "<span><h1 id='id_ticket_is'>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
                     echo "<span><p class='type'>Тема: ". $data['ticket']['name'] ."</p></span>";
+                    echo "<span><p class='date'>Дата создания: ". $data['ticket']['create_date'] ."</p></span>";
                     echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
                     echo "<span class='images-info'>";
                     if (isset ($data['files'])) {

@@ -40,116 +40,109 @@ class Model_Ticket extends Model
             //сравниваем полученные count-результаты, берём сотрудника с наименьшим количеством активных тикетов и подставляем его в id_employee в tickets
             //если таких сотрудников несколько - берём первого сотрудника с наименьшим кол-вом активных тикетов (не хочу рандомом заниматься)
             $post['id_type'] = preg_replace('/[^0-9]/', '', $post['id_type']);
-            $employees_string = "SELECT `users`.`id` FROM `users` INNER JOIN `allowed_types`  ON (`allowed_types`.`id_user` = `users`.`id`) WHERE `id_role` = '2' AND `id_type` = ". $post['id_type'];
+            $employees_string = "SELECT `users`.`id` FROM `users` INNER JOIN `allowed_types` 
+            ON (`allowed_types`.`id_user` = `users`.`id`) WHERE `id_role` = '2' AND `id_type` = ". $post['id_type'];
             $employees = [];
             $tickets = [];
-            //echo $employees_string;
+
             $check = $mysqli->query($employees_string);
             if ($check !== false) {
                 while ($checking = $check->fetch_assoc()) {
                     $employees['id'][] = $checking['id'];
                 }
-                //var_dump($employees);
+                if (!empty($employees)) {
+                    foreach ($employees['id'] as $id) {
+                        $employees_string = "SELECT * FROM `tickets` WHERE `id_employee` = ". $id ." AND `id_status` != '3'";
+                        //echo $employees_string;
+                        $check = $mysqli->query($employees_string);
+                        if ($check !== false) {
+                            if ($check->fetch_assoc()) {
+                                $tickets[] = [
+                                    'id' => $id,
+                                    'total' => $check->num_rows
+                                ];
+                            }
+                            else {
+                                $tickets[] = [
+                                    'id' => $id,
+                                    'total' => 0
+                                ];
+                            }
+                        }
+                        else {
+                            $_SESSION['success'] = false;
+                            $_SESSION['message'][] = "Сотрудники не существуют?";
+                        }
+                    }
+                    
+                    $min = PHP_INT_MAX;
+                    $id_employee = 0;
+                    foreach ($tickets as $entry) {
+                        if ($min > $entry['total']) {
+                            $min = $entry['total'];
+                            $id_employee = $entry['id'];
+                        }
+                    }   
+        
+        
+                    $string = "INSERT INTO `tickets` VALUES (NULL, '". $_SESSION['id'] ."', 
+                    '". $id_employee. "', '". $post['title'] ."', '". $post['id_type'] ."', 
+                    '". $post['text'] ."', '1', '" . date('Y-m-d H:i:s') . "', NULL, NULL)";
+                    // echo $string;
+                    $check = $mysqli->query($string);
+                    if ($check !== false) {
+                        $_SESSION['success'] = true;
+                    }
+                    else $_SESSION['success'] = false;
+
             }
             else {
                 $_SESSION['success'] = false;
-                $_SESSION['message'][] = "Нет нужных сотрудников на вопрос.";
-                //echo $employees_string;
-                //die; 
-            }
-
-            foreach ($employees['id'] as $id) {
-                $employees_string = "SELECT * FROM `tickets` WHERE `id_employee` = ". $id ." AND `id_status` != '3'";
-                //echo $employees_string;
-                $check = $mysqli->query($employees_string);
-                if ($check !== false) {
-                    if ($check->fetch_assoc()) {
-                        //echo "aboba";
-                        $tickets[] = [
-                            'id' => $id,
-                            'total' => $check->num_rows
-                        ];
-                    }
-                    else {
-                        //echo "bobaba";
-                        $tickets[] = [
-                            'id' => $id,
-                            'total' => 0
-                        ];
-                    }
-                }
-                else {
-                    $_SESSION['success'] = false;
-                    $_SESSION['message'][] = "Сотрудники не существуют?";
-                    //echo $employees_string;
-                    //die; 
-                }
-            }
-            $min = PHP_INT_MAX;
-            $id_employee = 0;
-            foreach ($tickets as $entry) {
-                if ($min > $entry['total']) {
-                    $min = $entry['total'];
-                    $id_employee = $entry['id'];
-                }
-            }   
-            //echo $min;
-            //echo "<pre>";
-            //var_dump ($tickets);
-            //echo "</pre>";
-            //var_dump ($tickets);
-
-            $string = "INSERT INTO `tickets` VALUES (NULL, '". $_SESSION['id'] ."', '". $id_employee. "', '". $post['title'] ."', '". $post['id_type'] ."', '". $post['text'] ."', '1', '" . date('Y-m-d H:i:s') . "', NULL, NULL)";
-            // echo $string;
-            $check = $mysqli->query($string);
-            if ($check !== false) {
-                $_SESSION['success'] = true;
-            }
-            else $_SESSION['success'] = false;
+                $_SESSION['message'][] = "Нет сотрудников на Ваш вопрос.";
             }
         }
-
-        function makeRandomString($max=16) { //генерируем названия файлов
-			$i = 0; //Reset the counter.
-			$possible_keys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			$keys_length = strlen($possible_keys);
-			$str = ""; //Let's declare the string, to add later.
-			while($i<$max) {
-				$rand = mt_rand(1,$keys_length-1);
-				$str.= $possible_keys[$rand];
-				$i++;
-			}
-			return $str;
-		}
-
-        var_dump($_FILES);
-        $ticket_id = $mysqli->insert_id;
-
-
-        if (isset($_FILES) && !empty($_FILES)) {
-            foreach ($_FILES ["file"]["error"] as $key => $error) {
-                $filesTmp = $_FILES["file"]["tmp_name"][$key];
-                $filesName = $_FILES["file"]["name"][$key];
-                $filesExt = strstr($filesName, ".");
-                $filesName = makeRandomString() . $filesExt;
-
-                if (move_uploaded_file($filesTmp, "../root/files/tickets/" . $filesName)) {
-                    $string_file = "INSERT INTO `files_tickets` VALUES (NULL, '". $ticket_id ."', '$filesName')";
-                    //echo $string_file;
-
-                    if ($mysqli->query($string_file)) {
-                        $_SESSION['success_file'] = TRUE;
+    
+            function makeRandomString($max=16) { //генерируем названия файлов
+                $i = 0; //Reset the counter.
+                $possible_keys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                $keys_length = strlen($possible_keys);
+                $str = ""; //Let's declare the string, to add later.
+                while($i<$max) {
+                    $rand = mt_rand(1,$keys_length-1);
+                    $str.= $possible_keys[$rand];
+                    $i++;
+                }
+                return $str;
+            }
+    
+            //var_dump($_FILES);
+            $ticket_id = $mysqli->insert_id;
+    
+            if (isset($_FILES) && !empty($_FILES)) {
+                foreach ($_FILES ["file"]["error"] as $key => $error) {
+                    $filesTmp = $_FILES["file"]["tmp_name"][$key];
+                    $filesName = $_FILES["file"]["name"][$key];
+                    $filesExt = strstr($filesName, ".");
+                    $filesName = makeRandomString() . $filesExt;
+    
+                    if (move_uploaded_file($filesTmp, "../localhost/files/tickets/" . $filesName)) {
+                        $string_file = "INSERT INTO `files_tickets` VALUES (NULL, '". $ticket_id ."', '$filesName')";
+                        //echo $string_file;
+    
+                        if ($mysqli->query($string_file)) {
+                            $_SESSION['success_file'] = TRUE;
+                        }
+                        else $_SESSION['success_file'] = FALSE;
+                        //echo $mysqli->insert_id;
                     }
                     else $_SESSION['success_file'] = FALSE;
-                    //echo $mysqli->insert_id;
                 }
-                else $_SESSION['success_file'] = FALSE;
+                unset ($_SESSION['success_file']);
             }
-            unset ($_SESSION['success_file']);
         }
-
         return $data;
-     }
+    }
+}
 
     function timer($data_view, $id_ticket) {
         $data = [
@@ -254,71 +247,55 @@ class Model_Ticket extends Model
         }
         $mysqli->set_charset('utf8');
 
-        //echo $page;
-        if ($_SESSION['id_role'] == 3) {//пользователь
-            $limit = 30;
-            $offset = ($page - 1) * $limit;
-            
+        $limit = 30;
+        $offset = ($page - 1) * $limit;
+        
+
+        if ($_SESSION['id_role'] == 3)
             $str_count = "SELECT * FROM `tickets` WHERE `tickets`.`id_author` = ". $_SESSION['id'];
 
-            $res_count = $mysqli->query($str_count);
-
-            $count_subjects = $res_count->num_rows;
-            $count_page = floor ($count_subjects / $limit);
-            if ($count_subjects % $limit > 0) {
-                $count_page++;
-            }
-            $data = [$count_page, $page]; 
-
-            $string = "SELECT `tickets`.`id`, `tickets`.`title`, `tickets`.`id_status` FROM `tickets` JOIN `status` ON (`tickets`.`id_status` = `status`.`id`) WHERE `tickets`.`id_author` = ". $_SESSION['id'] ." ORDER BY `tickets`.`id` DESC ";
-            $string_limit = $string . "LIMIT $limit OFFSET $offset";
-            
-            //echo $string_limit;
-
-            $result = $mysqli->query($string_limit);
-
-            while ($fletcher = $result->fetch_assoc()) {
-                $data['tickets'][] = [
-                    'id' => $fletcher['id'], 
-                    'title' => $fletcher['title'], 
-                    'id_status' => $fletcher['id_status']
-                ];
-            }
-            return $data;
-        }
-
-        if ($_SESSION['id_role'] == 2) {//сотрудник
-            $limit = 30;
-            $offset = ($page - 1) * $limit;
-            
+        if ($_SESSION['id_role'] == 2)
             $str_count = "SELECT * FROM `tickets` WHERE `tickets`.`id_employee` = ". $_SESSION['id'];
 
-            $res_count = $mysqli->query($str_count);
 
-            $count_subjects = $res_count->num_rows;
-            $count_page = floor ($count_subjects / $limit);
-            if ($count_subjects % $limit > 0) {
-                $count_page++;
-            }
-            $data = [$count_page, $page]; 
+        $res_count = $mysqli->query($str_count);
 
-            $string = "SELECT `tickets`.`id`, `tickets`.`title`, `tickets`.`id_status` FROM `tickets` JOIN `status` ON (`tickets`.`id_status` = `status`.`id`) WHERE `tickets`.`id_employee` = ". $_SESSION['id'] ." ORDER BY `tickets`.`id` DESC ";
-            $string_limit = $string . "LIMIT $limit OFFSET $offset";
-            
-            //echo $string_limit;
-
-            $result = $mysqli->query($string_limit);
-
-            while ($fletcher = $result->fetch_assoc()) {
-                $data['tickets'][] = [
-                    'id' => $fletcher['id'], 
-                    'title' => $fletcher['title'], 
-                    'id_status' => $fletcher['id_status']
-                ];
-            }
-            return $data;
+        $count_tickets = $res_count->num_rows;
+        $count_page = floor ($count_tickets / $limit);
+        if ($count_tickets % $limit > 0) {
+            $count_page++;
         }
+        $data = [$count_page, $page]; 
+
+
+        if ($_SESSION['id_role'] == 3) {
+            $string = "SELECT `tickets`.`id`, `tickets`.`title`, `tickets`.`id_status` 
+                FROM `tickets` JOIN `status` ON (`tickets`.`id_status` = `status`.`id`) 
+                WHERE `tickets`.`id_author` = ". $_SESSION['id'] ." ORDER BY `tickets`.`id` DESC ";
+        }
+
+        if ($_SESSION['id_role'] == 2) {
+            $string = "SELECT `tickets`.`id`, `tickets`.`title`, `tickets`.`id_status` 
+                FROM `tickets` JOIN `status` ON (`tickets`.`id_status` = `status`.`id`) 
+                WHERE `tickets`.`id_employee` = ". $_SESSION['id'] ." ORDER BY `tickets`.`id` DESC ";
+        }
+
+        $string_limit = $string . "LIMIT $limit OFFSET $offset";
+        
+        //echo $string_limit;
+
+        $result = $mysqli->query($string_limit);
+
+        while ($fletcher = $result->fetch_assoc()) {
+            $data['tickets'][] = [
+                'id' => $fletcher['id'], 
+                'title' => $fletcher['title'], 
+                'id_status' => $fletcher['id_status']
+            ];
+        }
+        return $data;
     }
+
 
     function view($id) {
         $data = [];
@@ -327,37 +304,29 @@ class Model_Ticket extends Model
             die('Error');
         }
         $mysqli->set_charset('utf8');
-        if ($_SESSION['id_role'] == 3) {
+
         $string = "SELECT `tickets`.*, 
-        `user1`.`login` AS `login1`, 
-        `user2`.`login` AS `login2`, 
-        `ticket_type`.`name` 
-        FROM `tickets`
-            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`) 
-            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
-            JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`) 
-            WHERE `id_author` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
-        }
-        //echo $string;
-        if ($_SESSION['id_role'] == 2) {
-            $today = date('Y-m-d H:i:s');
-            $string = "UPDATE `tickets` SET `start-date` = '$today'";
-            $string = "SELECT `tickets`.*, 
             `user1`.`login` AS `login1`, 
             `user2`.`login` AS `login2`, 
             `ticket_type`.`name` 
             FROM `tickets`
-                LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`)
-                LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
-                JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`)
-                WHERE `id_employee` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
+            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`) 
+            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
+            JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`)";
 
-            }
+        if ($_SESSION['id_role'] == 3) {
+            $string .= " WHERE `id_author` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
+        }
+
+        if ($_SESSION['id_role'] == 2) {
+            $string .= " WHERE `id_employee` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
+
+            $today = date('Y-m-d H:i:s');
+            $string_update = "UPDATE `tickets` SET `start-date` = '$today'";
+        }
         
-        //echo $string;
         $check = $mysqli->query($string);
         
-
         if ($check = $check->fetch_assoc()) {
             $data['ticket'] = [
                 'id' => $check['id'], 
@@ -368,7 +337,8 @@ class Model_Ticket extends Model
                 'author' => $check['login1'],
                 'employee' => $check['login2'],
                 'text' => $check['text'],
-                'id_status' => $check['id_status']
+                'id_status' => $check['id_status'],
+                'create_date' => $check['create_date']
             ];
         }
         else $data['success'] = false;
