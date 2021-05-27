@@ -122,6 +122,19 @@ button a{
     color: rgba(50, 50, 50, 0.35);
     height: 60px;
 }
+
+.file {
+    color: black;
+}
+
+.images-info {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
 </style>
 <div class="main-content">
     <div class="info">
@@ -136,7 +149,15 @@ button a{
                     echo "<span><h1 id='id_ticket_is'>". $data['ticket']['id'] ."</h1><h2 style='padding-left: 20px;'>". $data['ticket']['title'] ."</h2></span>";
                     echo "<span><p class='type'>Тема: ". $data['ticket']['name'] ."</p></span>";
                     echo "<span><p class='text'>". $data['ticket']['text'] ."</p></span>";
-                    echo "<span class='images-info'></span>";
+                    echo "<span class='images-info'>";
+                    if (isset ($data['files'])) {
+                        //var_dump ($data['files']);
+                        foreach ($data['files'] as $file) {
+                            echo "<p><a class='file' href='/file/download/". $file['id'] ."'>" . $file['name'] . "</a></p>";
+                        }
+                    }
+                    
+                    echo "</span>";
                     echo "<span class='creator-info'><h2>Автор: </h2><p>". $data['ticket']['author'] ."</p></span>";
                     echo "<span class='worker-info'><h2>Сотрудник: </h2><p>". $data['ticket']['employee'] ."</p></span>";
                     echo "<span id='id_author' style='display: none;'>".$data['ticket']['id_author']."</span>";

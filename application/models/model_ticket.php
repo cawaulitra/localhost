@@ -123,6 +123,8 @@ class Model_Ticket extends Model
 		}
 
         var_dump($_FILES);
+        $ticket_id = $mysqli->insert_id;
+
 
         if (isset($_FILES) && !empty($_FILES)) {
             foreach ($_FILES ["file"]["error"] as $key => $error) {
@@ -132,8 +134,8 @@ class Model_Ticket extends Model
                 $filesName = makeRandomString() . $filesExt;
 
                 if (move_uploaded_file($filesTmp, "../root/files/tickets/" . $filesName)) {
-                    $string_file = "INSERT INTO `files_tickets` VALUES (NULL, '". $mysqli->insert_id ."', '$filesName')";
-                    echo $string_file;
+                    $string_file = "INSERT INTO `files_tickets` VALUES (NULL, '". $ticket_id ."', '$filesName')";
+                    //echo $string_file;
 
                     if ($mysqli->query($string_file)) {
                         $_SESSION['success_file'] = TRUE;
@@ -370,6 +372,17 @@ class Model_Ticket extends Model
             ];
         }
         else $data['success'] = false;
+        $string = "SELECT * FROM `files_tickets` WHERE `id_ticket` = '". $data['ticket']['id'] ."'";
+        //echo $string;
+        $check = $mysqli->query($string);
+
+        while ($checking = $check->fetch_assoc()) {
+            $data['files'][] = [
+                'id' => $checking['id'],
+                'name' => $checking['name']
+            ];
+        }
+        
         return $data;
     }
 
