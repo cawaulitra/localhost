@@ -208,7 +208,15 @@ class Model_Admin extends Model
         }
         $mysqli->set_charset('utf8');
 
-        $string = "SELECT `tickets`.*, `ticket_type`.`name` FROM `tickets` JOIN `ticket_type` ON (`tickets`.`id_type` = `ticket_type`.`id`) WHERE `tickets`.`id` = '$id'";
+        $string = "SELECT `tickets`.*, 
+        `user1`.`login` AS `login1`, 
+        `user2`.`login` AS `login2`, 
+        `ticket_type`.`name` 
+        FROM `tickets`
+            LEFT JOIN `users` AS user1 ON (`tickets`.`id_author` = `user1`.`id`) 
+            LEFT JOIN `users` AS user2 ON (`tickets`.`id_employee` = `user2`.`id`) 
+            JOIN `ticket_type` ON  (`tickets`.`id_type` = `ticket_type`.`id`) 
+        WHERE `tickets`.`id` = '$id'";
         echo $string;
         $result = $mysqli->query($string);
         while ($fetch = $result->fetch_assoc()) {
@@ -216,6 +224,8 @@ class Model_Admin extends Model
                 'id' => $fetch['id'],
                 'id_author' => $fetch['id_author'],
                 'id_employee' => $fetch['id_employee'],
+                'login_author' => $fetch['login1'],
+                'login_employee' => $fetch ['login2'],
                 'id_type' => $fetch['id_type'],
                 'title' => $fetch['id_type'],
                 'name' => $fetch['name'],
