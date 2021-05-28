@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.5
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Хост: localhost
--- Время создания: Май 24 2021 г., 08:35
--- Версия сервера: 5.6.34
--- Версия PHP: 7.1.11
+-- Хост: 127.0.0.1:3306
+-- Время создания: Май 28 2021 г., 20:18
+-- Версия сервера: 10.4.12-MariaDB-log
+-- Версия PHP: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,7 +40,12 @@ CREATE TABLE `allowed_types` (
 --
 
 INSERT INTO `allowed_types` (`id`, `id_user`, `id_type`) VALUES
-(1, 3, 1);
+(2, 3, 1),
+(3, 3, 2),
+(4, 3, 3),
+(5, 4, 1),
+(6, 4, 4),
+(7, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -93,7 +97,8 @@ INSERT INTO `messages` (`id`, `id_ticket`, `id_user`, `text`) VALUES
 (75, 1, 4, 'уеапыуп'),
 (76, 1, 4, 'уеапыуп'),
 (77, 1, 4, 'уеапыуп'),
-(78, 1, 5, '');
+(78, 1, 5, ''),
+(79, 14, 1, 'Тут кто-нибудь есть?');
 
 -- --------------------------------------------------------
 
@@ -149,7 +154,7 @@ CREATE TABLE `tickets` (
   `id_type` int(15) NOT NULL,
   `text` mediumtext NOT NULL,
   `id_status` int(15) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `start_date` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `end_date` timestamp NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -171,7 +176,8 @@ INSERT INTO `tickets` (`id`, `id_author`, `id_employee`, `title`, `id_type`, `te
 (10, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:29:43', NULL, NULL),
 (11, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:30:00', NULL, NULL),
 (12, 1, 3, 'Помогите пожалуйста', 1, 'У меня страничка уехала вниз! Я не знаю что делать! Ещё сверху странные Warning появляются!\r\n\r\nЖду помощи!', 1, '2021-05-22 04:31:31', NULL, NULL),
-(13, 1, 3, 'hjhjh', 1, 'jkjkjk', 1, '2021-05-24 05:25:30', NULL, NULL);
+(13, 1, 3, 'hjhjh', 1, 'jkjkjk', 1, '2021-05-24 05:25:30', NULL, NULL),
+(14, 1, 4, 'ГДЗ', 5, 'Решите мне номер пожалуйста!', 1, '2021-05-28 16:17:10', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -189,7 +195,11 @@ CREATE TABLE `ticket_type` (
 --
 
 INSERT INTO `ticket_type` (`id`, `name`) VALUES
-(1, 'Биология');
+(1, 'Биология'),
+(2, 'Астрономия'),
+(3, 'Кулинария'),
+(4, 'Естествознание'),
+(5, 'Русский язык');
 
 -- --------------------------------------------------------
 
@@ -282,7 +292,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `allowed_types`
 --
 ALTER TABLE `allowed_types`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `files_messages`
@@ -300,7 +310,7 @@ ALTER TABLE `files_tickets`
 -- AUTO_INCREMENT для таблицы `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
@@ -318,13 +328,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `ticket_type`
 --
 ALTER TABLE `ticket_type`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
