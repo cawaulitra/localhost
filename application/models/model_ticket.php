@@ -125,7 +125,7 @@ class Model_Ticket extends Model
                     $filesExt = strstr($filesName, ".");
                     $filesName = makeRandomString() . $filesExt;
     
-                    if (move_uploaded_file($filesTmp, "../localhost/files/tickets/" . $filesName)) {
+                    if (move_uploaded_file($filesTmp, "./files/tickets/" . $filesName)) {
                         $string_file = "INSERT INTO `files_tickets` VALUES (NULL, '". $ticket_id ."', '$filesName')";
                         //echo $string_file;
     

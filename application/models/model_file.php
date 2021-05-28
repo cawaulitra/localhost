@@ -43,7 +43,7 @@ class Model_File extends Model
             $type = 'application/vnd.rar';
         }
 
-        $path = "../localhost/files/tickets/" . $file[0]['name'];
+        $path = "./files/tickets/" . $file[0]['name'];
         if (($f = @fopen($path, r)) == true) {
             fclose($f);
             header("Content-Type: $type");
