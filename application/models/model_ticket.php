@@ -320,14 +320,22 @@ class Model_Ticket extends Model
 
         if ($_SESSION['id_role'] == 2) {
             $string .= " WHERE `id_employee` = ". $_SESSION['id'] ." AND `tickets`.`id` = $id";
-
-            $today = date('Y-m-d H:i:s');
-            $string_update = "UPDATE `tickets` SET `start-date` = '$today'";
         }
         
         $check = $mysqli->query($string);
         
         if ($check = $check->fetch_assoc()) {
+            if ($_SESSION['id_role'] == 2) {
+                if ($check['start_date'] == NULL) {
+                $today = date('Y-m-d H:i:s');
+                $string_update = "UPDATE `tickets` SET `start_date` = '$today', `id_status` = '2' WHERE `id` = '". $check['id'] ."'";
+                echo $string_update;
+                $check_update = $mysqli->query($string_update);
+
+                $check = $mysqli->query($string);
+                $check = $check->fetch_assoc();
+                }
+            }
             $data['ticket'] = [
                 'id' => $check['id'], 
                 'title' => $check['title'], 

@@ -164,9 +164,11 @@ button a{
                     echo "<span id='id_author' style='display: none;'>".$data['ticket']['id_author']."</span>";
                     echo "<span id='id_employee' style='display: none;'>".$data['ticket']['id_employee']."</span>";
                 }
+                if ($_SESSION['id_role'] == 2) {
+                    echo "<button type='submit'><a href='/ticket/close_ticket/" .$data['ticket']['id']. ">Закрыть тикет</a></button>";
+                }
             }
         ?>
-        <button type="submit"><a href="model/close_ticket/<?php echo $data['ticket']['id'];?>">Закрыть тикет</a></button>
     </div>
     <div class="chat-all">
         <p><?php 
