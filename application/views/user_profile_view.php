@@ -86,22 +86,25 @@ button{
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    justify-content: flex-start;
+    justify-content: center;
+
 }
 .text2{
 	width: 100%;
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    justify-content: flex-start;
+
+    justify-content: space-around;
 }
 .user_profile_content{
 	box-sizing: border-box;
 	padding: 63px 55px 63px 55px;
-	width: 100%;
+
     display: flex;
     flex-direction: column;
 	align-items: center;
+	
 }
 input{
 	margin-left: 5%;
