@@ -68,4 +68,14 @@ class Controller_ticket extends Controller
 			$this->view->generate('ticket_view.php', 'template_view.php', $data);
 		}
 	}
+
+	function action_complete($id) {
+		if (isset($_SESSION['login'])) {
+			if ($_SESSION['id_role'] == 2) {
+				$this->model->complete($id);
+				$data = $this->model->view($id);
+				$this->view->generate('ticket_view.php', 'template_view.php', $data);
+			}
+		}
+	}
 }

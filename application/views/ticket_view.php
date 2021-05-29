@@ -163,9 +163,10 @@ button a{
                     echo "<span class='worker-info'><h2>Сотрудник: </h2><p>". $data['ticket']['employee'] ."</p></span>";
                     echo "<span id='id_author' style='display: none;'>".$data['ticket']['id_author']."</span>";
                     echo "<span id='id_employee' style='display: none;'>".$data['ticket']['id_employee']."</span>";
-                }
-                if ($_SESSION['id_role'] == 2) {
-                    echo "<button type='submit'><a href='/ticket/close_ticket/" .$data['ticket']['id']. ">Закрыть тикет</a></button>";
+
+                    if ($_SESSION['id_role'] == 2 && $data['ticket']['id_status'] != 3) {
+                        echo "<button type='submit'><a href='/ticket/complete/" .$data['ticket']['id']. "'>Закрыть тикет</a></button>";
+                    }
                 }
             }
         ?>
@@ -181,10 +182,16 @@ button a{
 
             </div>
             <div style='display: none' id='inp_post_id'></div>
-            <div class="send_block">
-                <textarea class="inp_text" id="inp_text" placeholder="Сообщение" name="text"></textarea>
-                <input class="chat_submit_btn" id="submit_btn" type="submit" value="send" onclick="req2(); return false;">
-            </div>
+            <?php
+            if ($data['ticket']['id_status'] != 3) 
+                {
+                echo 
+                "<div class='send_block'>
+                    <textarea class='inp_text' id='inp_text' placeholder='Сообщение' name='text'></textarea>
+                    <input class='chat_submit_btn' id='submit_btn' type='submit' value='send' onclick='req2(); return false;'>
+                </div>";
+                }
+            ?>
         </form>
     </div>
 </div>

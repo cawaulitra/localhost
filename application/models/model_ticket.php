@@ -138,11 +138,40 @@ class Model_Ticket extends Model
                     else $_SESSION['success_file'] = FALSE;
                 }
                 unset ($_SESSION['success_file']);
+                }
+            }
+        return $data;
+        }
+    }
+
+    function complete($id) {
+        $data = [];
+        $ticket = [];
+        $mysqli = $this->sql_connect();
+        if ($mysqli->connect_error){
+            die('Error');
+        }
+        $mysqli->set_charset('utf8');
+
+        if ($_SESSION['id_role'] == 2) {
+            $string_check = "SELECT * FROM `tickets` WHERE `id` = '$id'";
+            $check = $mysqli->query($string_check);
+
+            if ($ticket = $check->fetch_assoc()) {
+                if ($ticket['id_status'] == 2) {
+                    $today = date('Y-m-d H:i:s');
+                    $string_update = "UPDATE `tickets` SET `end_date` = '$today', `id_status` = '3' WHERE `id` = '$id'";
+                }
+                if ($ticket['id_status'] == 1) {
+                    $today = date('Y-m-d H:i:s');
+                    $string_update = "UPDATE `tickets` SET `start_date` = '$today', `end_date` = '$today', `id_status` = '3' WHERE `id` = '$id'";
+                }
+                if (isset($string_update)) {
+                    $update = $mysqli->query($string_update);
+                }
             }
         }
-        return $data;
     }
-}
 
     function timer($data_view, $id_ticket) {
         $data = [
@@ -329,7 +358,7 @@ class Model_Ticket extends Model
                 if ($check['start_date'] == NULL) {
                 $today = date('Y-m-d H:i:s');
                 $string_update = "UPDATE `tickets` SET `start_date` = '$today', `id_status` = '2' WHERE `id` = '". $check['id'] ."'";
-                echo $string_update;
+               // echo $string_update;
                 $check_update = $mysqli->query($string_update);
 
                 $check = $mysqli->query($string);
