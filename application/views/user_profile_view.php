@@ -94,6 +94,7 @@ button{
     display: flex;
     flex-direction: row;
     align-items: baseline;
+	margin-left: 15px;
 
     justify-content: space-around;
 }
