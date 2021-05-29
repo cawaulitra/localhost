@@ -62,7 +62,7 @@
 </style>
 <div class="content-ticket">
     <div class="plane">
-    <p class="text">Список пользователь</p>
+    <p class="text">Список пользователей</p>
     </div>
     <div class="ticket">
         <div class="pagination">
